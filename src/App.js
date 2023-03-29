@@ -32,38 +32,46 @@ function App() {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {
-          currentForm === "login" || currentForm === "register" ? (
-            <div id="loginForms">
-              {
-                currentForm === "login" ? (
-                  <a>
-                    <Login currentForm={currentForm} setCurrentForm={setCurrentForm} />
-                    <a className='registerLabel'>Don't you have account yet? - <button onClick={setRegisterForm}>Register here!</button></a>
-                  </a>
+    <header className="App-header">
+      {
+        currentForm === "login" || currentForm === "register" ? (
+          <div className="App">
 
-                ) :
-                  (
+
+              <div id="loginForms">
+                {
+                  currentForm === "login" ? (
                     <a>
-                      <Registration />
-                      <a className='registerLabel'>Do you have already account? - <button onClick={setLoginForm}  >Log in here!</button></a>
+                      <Login currentForm={currentForm} setCurrentForm={setCurrentForm} />
+                      <a className='registerLabel'>Don't you have account yet? - <button onClick={setRegisterForm}>Register here!</button></a>
                     </a>
 
-                  )
-              }
-            </div>
-          ) :
-            <a>
-                <Page />
-              <br />
-            </a>
-        }
+                  ) :
+                    (
+                      <a>
+                        <Registration />
+                        <a className='registerLabel'>Do you have already account? - <button onClick={setLoginForm}  >Log in here!</button></a>
+                      </a>
+
+                    )
+                }
+              </div>
 
 
-      </header>
-    </div>
+
+
+
+          </div>
+        ) :
+          <a>
+            <Page />
+            <br />
+          </a>
+      }
+            </header>
+
+
+
 
   );
 }

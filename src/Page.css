@@ -1,0 +1,96 @@
+.categoryChoice {
+    text-align: center;
+    border-width:5px;
+    
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 50px;
+    width: 350px;
+    height: 250px;
+    font-size: medium;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+  }
+
+  .submitChooseCategory {
+    text-align: center;
+    margin-right: 0%;
+    width: 250px;
+    height: 75px;
+    background-color: aqua;
+  
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 9px #999;
+  }
+
+  .categoryChoiceForm {
+    position: absolute;
+    background-color: #282c34;
+    top: 30%;
+    right: 30%;
+
+
+
+  }
+
+  .rankingButton {
+    position: absolute;
+    width: 250px;
+    height: 75px;
+    color: rgb(15, 76, 189);
+    outline-color: rgb(47, 0, 255);
+    outline-width: 5px;
+
+    margin-right: 0%;
+    margin-top: 0%;
+    text-align: center;
+    top: 0%;
+    right: 26%;
+
+    font-size: medium;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+  
+    border-width:12px;
+    
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    background-color: rgb(175, 156, 11);
+
+  }
+
+  .logoutButton {
+    position: absolute;
+    width: 250px;
+    height: 75px;
+    color: rgb(15, 76, 189);
+    outline-color: rgb(47, 0, 255);
+    outline-width: 5px;
+
+    margin-right: 0%;
+    margin-top: 0%;
+    text-align: center;
+    top: 0%;
+    right: 0%;
+
+    font-size: medium;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bolder;
+  
+    border-width:12px;
+    
+    border-radius: 25px;
+    border: 3px solid #73AD21;
+    background-color: rgb(175, 156, 11);
+
+  }

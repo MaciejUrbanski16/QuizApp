@@ -94,3 +94,52 @@
     background-color: rgb(175, 156, 11);
 
   }
+
+  .nextQuestion {
+    position: relative;
+    width: 375px;
+    height: 90px;
+    background-color: green;
+    font-size: large;
+    font-style: italic;
+    font-display:unset;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    top: 60px;
+  }
+
+  .questionAndAnswers {
+    position: relative;
+    width: 1200px;
+    height: 600px;
+    border: 3px solid #73AD21;
+    text-align: center;
+    margin-left: 10%;
+    top: 80px;
+    border-radius: 30px;
+    border-width: 5px;
+  }
+
+  .answerButton {
+
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+
+    background-color: #a83232;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    transform: translateY(0.075em);
+
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+
+
+  }

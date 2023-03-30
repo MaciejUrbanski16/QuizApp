@@ -28,6 +28,9 @@ const Page = () => {
     const [answerD, setAnswerD] = useState('');
     const [correctAnswer, setCorrectAnswer] = useState('');
 
+    const [questionNumber, setQuestionNumber] = useState(1);
+    const [collectedPoints, setCollectedPoints] = useState(0);
+
 
 
     const handleSubmit = async e => {
@@ -78,6 +81,7 @@ const Page = () => {
 
     const handleNextQuestion = async () => {
         console.log("Next slajd plis " + selectedCategory.value);
+        setQuestionNumber(questionNumber + 1);
 
         if (selectedCategory.value === 'geografia') {
             try {
@@ -182,44 +186,60 @@ const Page = () => {
         handleSelectCategory();
     }
 
+    function handleUserAnswer(answer) {
+        console.log("handle user answer: " + answer);
+        if (answer === correctAnswer) {
+            setCollectedPoints(collectedPoints + 1)
+        }
+    }
+
 
     return (
         <div>
             {
-                selectedCategory.value === 'geografia' ? (
-                    <div>
+                questionNumber !== 6 ? (
+                    selectedCategory.value === 'geografia' ? (
 
-                        {question} <br />
-                        {answerA} <br />
-                        {answerB} <br />
-                        {answerC} <br />
-                        {answerD} <br />
-                        Czy chcesz poaznac prawidlowa odpowiedz ??
-                        <button onClick={handleNextQuestion}></button>
-                    </div>
-                ) :
-                    (
-                        <div>
-                            <LogoutButton />
-                            <RankingButton />
+                        <div className="questionAndAnswers" onChange={(e) => handleUserAnswer(e.target.value)}>
 
-                            <form className="categoryChoiceForm" >
+                            {question} <br />
+                            <input className="answerButton" type="radio" value={answerA} name="answer" /> {answerA} <br />
+                            <input className="answerButton" type="radio" value={answerB} name="answer" /> {answerB} <br />
+                            <input className="answerButton" type="radio" value={answerC} name="answer" /> {answerC} <br />
+                            <input className="answerButton" type="radio" value={answerD} name="answer" /> {answerD} <br />
 
-                                <label >
-                                    Jesli chcesz wziac udzial w quizie wybierz kategorie sposrod dostepnych<br /><br /><br />
+                            Czy chcesz poznać prawidłową odpowiedź ?? <br />
+                            <button className="nextQuestion" onClick={handleNextQuestion}>Submit answer</button>
 
-
-
-                                    <Select options={options} onChange={handleSelectCategory} autoFocus={true} /><br /><br /><br />
-                                </label>
-                                <input className="submitChooseCategory" type="submit" value="Wybierz kategorie" /><br />
-
-
-                                <br />
-                            </form>
                         </div>
-                    )
+                    ) :
+                        (
+                            <div>
+                                <LogoutButton />
+                                <RankingButton />
+
+                                <form className="categoryChoiceForm" >
+
+                                    <label >
+                                        Jesli chcesz wziac udzial w quizie wybierz kategorie sposrod dostepnych<br /><br /><br />
+                                        
+                                        <Select options={options} onChange={handleSelectCategory} autoFocus={true} /><br /><br /><br />
+                                    </label>
+                                    <input className="submitChooseCategory" type="submit" value="Wybierz kategorie" /><br />
+
+
+                                    <br />
+                                </form>
+                            </div>
+                        )
+
+                ) :
+                    (<div className="finalResults">
+                        Final results {collectedPoints} <br />
+                        Your answers were:
+                    </div>)
             }
+
 
 
         </div>

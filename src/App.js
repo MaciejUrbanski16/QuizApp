@@ -18,6 +18,8 @@ function App() {
 
   const [currentForm, setCurrentForm] = useState('login')
 
+  const [login, setLogin] = useState();
+
   function setRegisterForm() {
     setCurrentForm('register')
   }
@@ -42,7 +44,7 @@ function App() {
                 {
                   currentForm === "login" ? (
                     <a>
-                      <Login currentForm={currentForm} setCurrentForm={setCurrentForm} />
+                      <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} />
                       <a className='registerLabel'>Don't you have account yet? - <button onClick={setRegisterForm}>Register here!</button></a>
                     </a>
 
@@ -64,7 +66,7 @@ function App() {
           </div>
         ) :
           <a>
-            <Page />
+            <Page login={login} />
             <br />
           </a>
       }

@@ -14,7 +14,7 @@ const loggedSuccesful = <label>Login succesful</label>
 
 
 
-const Login = ({currentForm, setCurrentForm}) => {
+const Login = ({currentForm, setCurrentForm, userLogin, setUserLogin}) => {
 
     const [login, setLogin] = useState();
     const [email, setEmail] = useState();
@@ -35,6 +35,7 @@ const Login = ({currentForm, setCurrentForm}) => {
         e.preventDefault();
 
         console.log(login, email, password)
+        setUserLogin(login);
 
         try {
             const response = await axios.post(loginUrl, JSON.stringify({
@@ -48,10 +49,11 @@ const Login = ({currentForm, setCurrentForm}) => {
                     }
                 }
             )
+            
 
-            console.log(response.data)
-            console.log(response.accessToken)
-            console.log(JSON.stringify(response))
+            // console.log(response.data)
+            // console.log(response.accessToken)
+            // console.log(JSON.stringify(response))
 
             if(response.data.message === "User not found!")
             {

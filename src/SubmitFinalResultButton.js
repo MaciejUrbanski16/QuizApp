@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from './api/axios';
 
 const storeNewRankingEntryUrl = 'api/db/ranking/storeNewRankingEntry';
@@ -15,6 +15,7 @@ const SubmitFinalResultButton = ({ login, correctAnswers, time, totalQuestions }
         // e.preventDefault();
 
         // console.log(login, email, password)
+        let responseData = []
 
         try {
             const response = await axios.post(storeNewRankingEntryUrl, JSON.stringify({
@@ -64,10 +65,13 @@ const SubmitFinalResultButton = ({ login, correctAnswers, time, totalQuestions }
                 }
             )
 
-            const data = response.data;
-            const singleData = data[0]
-            console.log("Data read from server: ", data);
-            setRankingArray(rankingArray => [...rankingArray, data[0]]);
+            responseData = response.data;
+
+            
+            console.log("Data read from server: ", responseData);
+
+            setRankingArray(responseData);
+            //rankingArray.push(singleData);
             console.log("Response data in usestate after get ranking: ", rankingArray);
             // console.log(response.accessToken)
             // console.log(JSON.stringify(response))
@@ -87,12 +91,20 @@ const SubmitFinalResultButton = ({ login, correctAnswers, time, totalQuestions }
 
             //errRef.current.focus()
         }
+        
     }
+
+    useEffect(() => {
+        handleClick()
+      }, [])
+
 
     return (
         <button className="submitFinalResultButton" onClick={handleClick}>
             Submit Final Result
         </button>
+        
+
     )
 }
 export default SubmitFinalResultButton;

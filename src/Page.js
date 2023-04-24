@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Select from 'react-select'
+import Select, { components } from 'react-select'
+
 import RankingButton from "./RankingButton";
 import LogoutButton from "./LogoutButton";
 import SubmitFinalResultButton from "./SubmitFinalResultButton";
@@ -8,18 +9,15 @@ import axios from './api/axios'
 
 import './Page.css'
 
-const Page = ({login}) => {
+
+
+const Page = ({ login }) => {
 
     const dbGeographyUrl = 'api/db/geography'
     const dbHistoryUrl = 'api/db/history'
 
     console.log("login in Page", login);
 
-    const options = [
-        { value: 'geografia', label: 'Geografia' },
-        { value: 'fizyka', label: 'Fizyka' },
-        { value: 'matematyka', label: 'Matematyka' }
-    ];
 
     //hardcoded to five questions
     let counterOfQuestions = 0;
@@ -107,7 +105,7 @@ const Page = ({login}) => {
                     }
                 }
             )
-            
+
 
 
 
@@ -154,7 +152,7 @@ const Page = ({login}) => {
                         }
                     }
                 )
-               
+
                 setId(response.data.question.id);
                 setQuestion(response.data.question.question);
                 setAnswerA(response.data.question.answerA);
@@ -191,9 +189,9 @@ const Page = ({login}) => {
                     "correctAnswer": response.data.question.correctAnswer
                 }]);
                 console.log("Table size: ", questionsArray.length, "questions array length: ", questionsArray.length
-                , "submitted: ", JSON.stringify(questionsArray));
+                    , "submitted: ", JSON.stringify(questionsArray));
 
-                
+
 
                 console.log(response.data.question.question)
 
@@ -238,7 +236,7 @@ const Page = ({login}) => {
                         }
                     }
                 )
-                    
+
                 setId(response.data.question.id);
                 setQuestion(response.data.question.question);
                 setAnswerA(response.data.question.answerA);
@@ -295,25 +293,74 @@ const Page = ({login}) => {
         }
     }
 
+    const options = [
+        { value: 'geografia', label: 'Geografia', color: '#abcfca' },
+        { value: 'fizyka', label: 'Fizyka', color: '#abcfcf' },
+        { value: 'matematyka', label: 'Matematyka', color: '#abcfcf', fontColor: '#00ff00' }
+    ];
+
+
+    const styles = {
+        option: (provided, state) => ({
+            ...provided,
+            fontWeight: state.isSelected ? "bold" : "normal",
+            color: "white",
+            backgroundColor: state.data.color,
+            fontSize: state.selectProps.myFontSize
+        }),
+        singleValue: (provided, state) => ({
+            ...provided,
+            color: state.data.color,
+            fontSize: state.selectProps.myFontSize
+        })
+    };
+
+
+
+
+
 
     return (
         <div>
             {
                 questionNumber !== 6 ? (
                     selectedCategory.value === 'geografia' ? (
+                        <p>
+                            Pytanie numer {questionNumber}<br />
 
-                        <div className="questionAndAnswers" onChange={(e) => handleUserAnswer(e.target.value)}>
+                            <div className="questionAndAnswers" onChange={(e) => handleUserAnswer(e.target.value)}>
 
-                            {question} <br />
-                            <input className="answerButton" type="radio" value={answerA} name="answer" /> {answerA} <br />
-                            <input className="answerButton" type="radio" value={answerB} name="answer" /> {answerB} <br />
-                            <input className="answerButton" type="radio" value={answerC} name="answer" /> {answerC} <br />
-                            <input className="answerButton" type="radio" value={answerD} name="answer" /> {answerD} <br />
+                               
+                                <div className="radio-group">
+                                <label className="radio">
+                                    
+                                         {question} <br /><br />
+                                        
+                                    </label>
+                                    <label className="radio">
+                                        <input type="radio" name="answer" value="A" className="radio-input" />
+                                        <span className="radio-label">{"A  "+ answerA}</span>
+                                    </label>
+                                    <label className="radio">
+                                        <input type="radio" name="answer" value="B" className="radio-input" />
+                                        <span className="radio-label">{"B  "+ answerB}</span>
+                                    </label>
+                                    <label className="radio">
+                                        <input type="radio" name="answer" value="C" className="radio-input" />
+                                        <span className="radio-label">{"C  "+ answerC}</span>
+                                    </label>
+                                    <label className="radio">
+                                        <input type="radio" name="answer" value="D" className="radio-input" />
+                                        <span className="radio-label">{"D  "+ answerD}</span>
+                                    </label>
+                                </div>
 
-                            Czy chcesz poznać prawidłową odpowiedź ?? <br />
-                            <button className="nextQuestion" onClick={handleNextQuestion}>Submit answer</button>
 
-                        </div>
+                                <button className="nextQuestion" onClick={handleNextQuestion}>Submit answer</button>
+                            </div>
+
+                        </p>
+
                     ) :
                         (
                             <div>
@@ -322,12 +369,17 @@ const Page = ({login}) => {
 
                                 <form className="categoryChoiceForm" >
 
-                                    <label >
-                                        Jesli chcesz wziac udzial w quizie wybierz kategorie sposrod dostepnych<br /><br /><br />
-                                        
-                                        <Select options={options} onChange={handleSelectCategory} autoFocus={true} /><br /><br /><br />
-                                    </label>
-                                    <input className="submitChooseCategory" type="submit" value="Wybierz kategorie" /><br />
+                                    <div >
+                                        <div className="fontForMsg">
+                                            Jeśli chcesz wziąć udział w quizie wybierz kategorię spośród dostępnych<br /><br /><br />
+                                        </div>
+
+                                        <Select options={options} onChange={handleSelectCategory} autoFocus={true} menuColor='red' styles={styles} width='670px'
+
+                                        /><br /><br /><br />
+                                        <input className="submitChooseCategory" type="submit" value="Wybierz kategorie" /><br />
+                                    </div>
+
 
 
                                     <br />
@@ -335,7 +387,7 @@ const Page = ({login}) => {
                             </div>
                         )
 
-                ) : 
+                ) :
                     (<div className="finalResults">
                         Final results {collectedPoints} <br />
                         Your answers were:<br />
@@ -374,7 +426,7 @@ const Page = ({login}) => {
                         C: {questionsArray[4].answerC} <br />
                         D: {questionsArray[4].answerD} <br />
                         Correct answer: {questionsArray[4].correctAnswer}<br />
-                        <SubmitFinalResultButton login={login} correctAnswers={collectedPoints} time={'0:12'} totalQuestions={5}/>
+                        <SubmitFinalResultButton login={login} correctAnswers={collectedPoints} time={'0:12'} totalQuestions={5} />
 
                     </div>)
             }

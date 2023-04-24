@@ -1,145 +1,191 @@
 .categoryChoice {
-    text-align: center;
-    border-width:5px;
-    
-    border-radius: 25px;
-    border: 2px solid #73AD21;
-    padding: 50px;
-    width: 350px;
-    height: 250px;
-    font-size: medium;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bolder;
-  }
+  text-align: center;
+  border-width: 5px;
 
-  .submitChooseCategory {
-    text-align: center;
-    margin-right: 0%;
-    width: 250px;
-    height: 75px;
-    background-color: aqua;
-  
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 24px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 9px #999;
-  }
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 50px;
+  width: 350px;
+  height: 250px;
+  font-size: medium;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+}
 
-  .categoryChoiceForm {
-    position: absolute;
-    background-color: #282c34;
-    top: 30%;
-    right: 30%;
+.submitChooseCategory {
+  text-align: center;
+  margin-right: 0%;
+  width: 250px;
+  height: 75px;
+  background-color: aqua;
+
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px #999;
+}
+
+.categoryChoiceForm {
+  position: absolute;
+  background-color: #282c34;
+  margin-left: 15%;
+  margin-top: 15%;
+  margin-right: 15%;
+  text-align: center;
+}
+
+.fontForMsg {
+  color: #1b771e;
+  font-weight: 500;
+}
+
+.rankingButton {
+  position: absolute;
+  width: 250px;
+  height: 75px;
+  color: rgb(15, 76, 189);
+  outline-color: rgb(47, 0, 255);
+  outline-width: 5px;
+
+  margin-right: 0%;
+  margin-top: 0%;
+  text-align: center;
+  top: 0%;
+  right: 26%;
+
+  font-size: medium;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+
+  border-width: 12px;
+
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  background-color: rgb(175, 156, 11);
+
+}
+
+.logoutButton {
+  position: absolute;
+  width: 250px;
+  height: 75px;
+  color: rgb(15, 76, 189);
+  outline-color: rgb(47, 0, 255);
+  outline-width: 5px;
+
+  margin-right: 0%;
+  margin-top: 0%;
+  text-align: center;
+  top: 0%;
+  right: 0%;
+
+  font-size: medium;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+
+  border-width: 12px;
+
+  border-radius: 25px;
+  border: 3px solid #73AD21;
+  background-color: rgb(175, 156, 11);
+
+}
+
+.nextQuestion {
+  position: relative;
+  width: 375px;
+  height: 90px;
+  text-align: center;
+  background-color: green;
+  font-size: large;
+  font-style: italic;
+  font-display: unset;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  top: 60px;
+  left: -240px;
+}
+
+.questionAndAnswers {
+  position: relative;
+  width: 1200px;
+  height: 600px;
+  border: 3px solid #73AD21;
+  text-align: center;
+  margin-left: 10%;
+  top: 80px;
+  border-radius: 30px;
+  border-width: 5px;
+}
+
+.answerButton {
+
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+
+  margin-left: -20%;
+  text-align: left;
+  box-shadow: inset 1em 1em var(--form-control-color);
+
+  background-color: #a83232;
+
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+  transform: translateY(0.075em);
+
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
 
 
+}
 
-  }
+p {
+  text-align: center;
+  margin-left: 10%;
+}
 
-  .rankingButton {
-    position: absolute;
-    width: 250px;
-    height: 75px;
-    color: rgb(15, 76, 189);
-    outline-color: rgb(47, 0, 255);
-    outline-width: 5px;
+.answersRadioButtons {
+  display: inline-block;
+  margin-left: 25%;
+  text-align: left;
+}
 
-    margin-right: 0%;
-    margin-top: 0%;
-    text-align: center;
-    top: 0%;
-    right: 26%;
+.radio-group {
+  display: flex;
+  flex-direction: column;
+}
 
-    font-size: medium;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bolder;
-  
-    border-width:12px;
-    
-    border-radius: 25px;
-    border: 2px solid #73AD21;
-    background-color: rgb(175, 156, 11);
+.radio {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-  }
+.radio-input {
+  opacity: 0;
+  position: absolute;
+}
 
-  .logoutButton {
-    position: absolute;
-    width: 250px;
-    height: 75px;
-    color: rgb(15, 76, 189);
-    outline-color: rgb(47, 0, 255);
-    outline-width: 5px;
+.radio-label {
+  margin-left: 30%;
+  font-size: 32px;
+}
 
-    margin-right: 0%;
-    margin-top: 0%;
-    text-align: center;
-    top: 0%;
-    right: 0%;
-
-    font-size: medium;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bolder;
-  
-    border-width:12px;
-    
-    border-radius: 25px;
-    border: 3px solid #73AD21;
-    background-color: rgb(175, 156, 11);
-
-  }
-
-  .nextQuestion {
-    position: relative;
-    width: 375px;
-    height: 90px;
-    background-color: green;
-    font-size: large;
-    font-style: italic;
-    font-display:unset;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    top: 60px;
-  }
-
-  .questionAndAnswers {
-    position: relative;
-    width: 1200px;
-    height: 600px;
-    border: 3px solid #73AD21;
-    text-align: center;
-    margin-left: 10%;
-    top: 80px;
-    border-radius: 30px;
-    border-width: 5px;
-  }
-
-  .answerButton {
-
-    width: 0.65em;
-    height: 0.65em;
-    border-radius: 50%;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em var(--form-control-color);
-
-    background-color: #a83232;
-    margin: 0;
-    font: inherit;
-    color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    border: 0.15em solid currentColor;
-    border-radius: 50%;
-    transform: translateY(0.075em);
-
-    outline: max(2px, 0.15em) solid currentColor;
-    outline-offset: max(2px, 0.15em);
-
-
-  }
+.radio-input:checked+.radio-label {
+  color: #ff0000;
+  font-weight: bold;
+}

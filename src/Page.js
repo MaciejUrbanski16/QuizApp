@@ -66,6 +66,7 @@ const Page = ({ login }) => {
     ]
 
     const [selectedCategory, setSelectedCategory] = useState(' ');
+    const [isSubmitSelectCategory, setIsSubmitSelectCategory] = useState(false)
 
     const [id, setId] = useState(0);
     const [question, setQuestion] = useState('');
@@ -79,6 +80,8 @@ const Page = ({ login }) => {
     const [collectedPoints, setCollectedPoints] = useState(0);
 
     const [questionsArray, setQuestionsArray] = useState([]);
+    const [userAnswers, setUserAnswers] = useState([]);
+    const [answerToCurrentQuestion, setAnswerToCurrentQuestion] = useState(' ')
 
     //const [counterOfQuestions, setCounterOfQuestions]
 
@@ -132,8 +135,9 @@ const Page = ({ login }) => {
     }
 
     const handleNextQuestion = async () => {
-        console.log("Next slajd plis " + selectedCategory.value);
+
         setQuestionNumber(questionNumber + 1);
+        console.log("Next slajd plis " + selectedCategory.value + " question number: " + questionNumber);
 
         if (selectedCategory.value === 'geografia') {
             try {
@@ -196,6 +200,27 @@ const Page = ({ login }) => {
                 console.log(response.data.question.question)
 
                 console.log(JSON.stringify(response))
+                console.log("Question walidation")
+
+                if (answerToCurrentQuestion === correctAnswer[0]) {
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setCollectedPoints(collectedPoints + 1)
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": true
+                    }])
+                }
+                else {
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": false
+                    }])
+                }
+                console.log("Answer to current question: " + answerToCurrentQuestion + " correctAnswer: " + correctAnswer)
+                setAnswerToCurrentQuestion(' ');
+                console.log("Points: " + collectedPoints + " size of userAnswers: " + userAnswers.length);
+
 
 
             } catch (error) {
@@ -214,12 +239,11 @@ const Page = ({ login }) => {
         }
     }
 
-    const handleSelectCategory = async (selectedOption) => {
+    const handleSubmitSelectCategory = async () => {
+        console.log("handleSelectSubmitCategory")
+        setIsSubmitSelectCategory(true);
 
-        setSelectedCategory(selectedOption);
-        console.log(`Option selected:`, selectedOption);
-
-        if (selectedOption.value === 'geografia') {
+        if (selectedCategory.value === 'geografia') {
             try {
                 const response = await axios.get(dbGeographyUrl, JSON.stringify({
                     id,
@@ -263,6 +287,23 @@ const Page = ({ login }) => {
                 console.log("Table size: ", submittedAnswers.length);
                 console.log(response.data.question.question)
 
+                if (answerToCurrentQuestion === correctAnswer[0]) {
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setCollectedPoints(collectedPoints + 1)
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": true
+                    }])
+                }
+                else {
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": false
+                    }])
+                }
+
+
                 console.log(JSON.stringify(response))
 
 
@@ -282,15 +323,20 @@ const Page = ({ login }) => {
         }
     }
 
+    const handleSelectCategory = async (selectedOption) => {
+        console.log(`Option selected:`, selectedOption);
+        setSelectedCategory(selectedOption);
+    }
+
     function setSelectedCategoryAsNone() {
         handleSelectCategory();
     }
 
     function handleUserAnswer(answer) {
         console.log("handle user answer: " + answer);
-        if (answer === correctAnswer) {
-            setCollectedPoints(collectedPoints + 1)
-        }
+        console.log("All users answers: " + userAnswers);
+        setAnswerToCurrentQuestion(answer);
+
     }
 
     const options = [
@@ -315,6 +361,15 @@ const Page = ({ login }) => {
         })
     };
 
+    const separatorStyle = {
+        border: "none",
+        height: "11px",
+        color: "#1c11cc",
+        backgroundColor: "#ccddcc",
+        marginTop: "20px",
+        marginBottom: "20px"
+    }
+
 
 
 
@@ -324,34 +379,34 @@ const Page = ({ login }) => {
         <div>
             {
                 questionNumber !== 6 ? (
-                    selectedCategory.value === 'geografia' ? (
+                    selectedCategory.value === 'geografia' && isSubmitSelectCategory === true ? (
                         <p>
                             Pytanie numer {questionNumber}<br />
 
                             <div className="questionAndAnswers" onChange={(e) => handleUserAnswer(e.target.value)}>
 
-                               
+
                                 <div className="radio-group">
-                                <label className="radio">
-                                    
-                                         {question} <br /><br />
-                                        
+                                    <label className="question">
+
+                                        {question} <br /><br />
+
                                     </label>
                                     <label className="radio">
                                         <input type="radio" name="answer" value="A" className="radio-input" />
-                                        <span className="radio-label">{"A  "+ answerA}</span>
+                                        <span className="radio-label">{"A  " + answerA}</span>
                                     </label>
                                     <label className="radio">
                                         <input type="radio" name="answer" value="B" className="radio-input" />
-                                        <span className="radio-label">{"B  "+ answerB}</span>
+                                        <span className="radio-label">{"B  " + answerB}</span>
                                     </label>
                                     <label className="radio">
                                         <input type="radio" name="answer" value="C" className="radio-input" />
-                                        <span className="radio-label">{"C  "+ answerC}</span>
+                                        <span className="radio-label">{"C  " + answerC}</span>
                                     </label>
                                     <label className="radio">
                                         <input type="radio" name="answer" value="D" className="radio-input" />
-                                        <span className="radio-label">{"D  "+ answerD}</span>
+                                        <span className="radio-label">{"D  " + answerD}</span>
                                     </label>
                                 </div>
 
@@ -367,7 +422,7 @@ const Page = ({ login }) => {
                                 <LogoutButton />
                                 <RankingButton />
 
-                                <form className="categoryChoiceForm" >
+                                <form className="categoryChoiceForm" onSubmit={handleSubmitSelectCategory} >
 
                                     <div >
                                         <div className="fontForMsg">
@@ -377,6 +432,7 @@ const Page = ({ login }) => {
                                         <Select options={options} onChange={handleSelectCategory} autoFocus={true} menuColor='red' styles={styles} width='670px'
 
                                         /><br /><br /><br />
+
                                         <input className="submitChooseCategory" type="submit" value="Wybierz kategorie" /><br />
                                     </div>
 
@@ -389,50 +445,109 @@ const Page = ({ login }) => {
 
                 ) :
                     (<div className="finalResults">
-                        Final results {collectedPoints} <br />
-                        Your answers were:<br />
+                        Final results {collectedPoints} <br /><br />
+                        Your answers were:<br /><br />
 
-                        Question: {questionsArray[0].question} <br />
+                        Pytanie 1: {questionsArray[0].question} <br />
                         A: {questionsArray[0].answerA} <br />
                         B: {questionsArray[0].answerB} <br />
                         C: {questionsArray[0].answerC} <br />
-                        D: {questionsArray[0].answerD} <br />
-                        Correct answer: {questionsArray[0].correctAnswer}<br />
+                        D: {questionsArray[0].answerD} <br /><br />
+                        {userAnswers[0].isCorrectAnswer === true ? (<div>
+                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[0].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[0].correctAnswer}</a><br />
+                        </div>
+                        ) :
+                            (
+                                <div>
+                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[0].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[0].correctAnswer}</a><br />
+                                </div>
+                            )}
 
-                        Question: {questionsArray[1].question} <br />
+                        <hr
+                            style={separatorStyle}
+                        />
+                        Pytanie 2: {questionsArray[1].question} <br />
                         A: {questionsArray[1].answerA} <br />
                         B: {questionsArray[1].answerB} <br />
                         C: {questionsArray[1].answerC} <br />
-                        D: {questionsArray[1].answerD} <br />
-                        Correct answer: {questionsArray[1].correctAnswer}<br />
-
-                        Question: {questionsArray[2].question} <br />
+                        D: {questionsArray[1].answerD} <br /><br />
+                        {userAnswers[1].isCorrectAnswer === true ? (<div>
+                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[1].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[1].correctAnswer}</a><br />
+                        </div>
+                        ) :
+                            (
+                                <div>
+                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[1].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[1].correctAnswer}</a><br />
+                                </div>
+                            )}
+                        <hr
+                            style={separatorStyle}
+                        />
+                        Pytanie 3: {questionsArray[2].question} <br />
                         A: {questionsArray[2].answerA} <br />
                         B: {questionsArray[2].answerB} <br />
                         C: {questionsArray[2].answerC} <br />
-                        D: {questionsArray[2].answerD} <br />
-                        Correct answer: {questionsArray[2].correctAnswer}<br />
-
-                        Question: {questionsArray[3].question} <br />
+                        D: {questionsArray[2].answerD} <br /><br />
+                        {userAnswers[2].isCorrectAnswer === true ? (<div>
+                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[2].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[2].correctAnswer}</a><br />
+                        </div>
+                        ) :
+                            (
+                                <div>
+                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[2].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[2].correctAnswer}</a><br />
+                                </div>
+                            )}
+                        <hr
+                            style={separatorStyle}
+                        />
+                        Pytanie 4: {questionsArray[3].question} <br />
                         A: {questionsArray[3].answerA} <br />
                         B: {questionsArray[3].answerB} <br />
                         C: {questionsArray[3].answerC} <br />
-                        D: {questionsArray[3].answerD} <br />
-                        Correct answer: {questionsArray[3].correctAnswer}<br />
+                        D: {questionsArray[3].answerD} <br /> <br />
+                        {userAnswers[3].isCorrectAnswer === true ? (<div>
+                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[3].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[3].correctAnswer}</a><br />
+                        </div>
+                        ) :
+                            (
+                                <div>
+                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[3].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[3].correctAnswer}</a><br />
+                                </div>
+                            )}
+                        <hr
+                            style={separatorStyle}
+                        />
 
-                        Question: {questionsArray[4].question} <br />
+
+
+                        Pytanie 5: {questionsArray[4].question} <br />
                         A: {questionsArray[4].answerA} <br />
                         B: {questionsArray[4].answerB} <br />
                         C: {questionsArray[4].answerC} <br />
-                        D: {questionsArray[4].answerD} <br />
-                        Correct answer: {questionsArray[4].correctAnswer}<br />
+                        D: {questionsArray[4].answerD} <br /> <br />
+                        {userAnswers[4].isCorrectAnswer === true ? (<div>
+                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[4].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[4].correctAnswer}</a><br />
+                        </div>
+                        ) :
+                            (
+                                <div>
+                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[4].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[4].correctAnswer}</a><br />
+                                </div>
+                            )}
                         <SubmitFinalResultButton login={login} correctAnswers={collectedPoints} time={'0:12'} totalQuestions={5} />
 
                     </div>)
             }
-
-
-
         </div>
 
 

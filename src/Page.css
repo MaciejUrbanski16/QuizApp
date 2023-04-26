@@ -73,6 +73,31 @@
 
 }
 
+.submitFinalResultButton {
+  position: relative;
+  width: 250px;
+  height: 75px;
+  color: rgb(15, 76, 189);
+  outline-color: rgb(47, 0, 255);
+  outline-width: 5px;
+
+  margin-right: 0%;
+  margin-top: 5%;
+  text-align: center;
+  top: 0%;
+  right: 0%;
+
+  font-size: medium;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+
+  border-width: 12px;
+
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  background-color: rgb(175, 156, 11);
+}
+
 .logoutButton {
   position: absolute;
   width: 250px;
@@ -105,12 +130,12 @@
   height: 90px;
   text-align: center;
   background-color: green;
-  font-size: large;
+  font-size: 0.8cm;
   font-style: italic;
   font-display: unset;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  top: 60px;
-  left: -240px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  top: 20%;
+
 }
 
 .questionAndAnswers {
@@ -167,25 +192,61 @@ p {
 .radio-group {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .radio {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .radio-input {
   opacity: 0;
+  align-items: center;
   position: absolute;
+  text-align: center;
 }
 
 .radio-label {
   margin-left: 30%;
   font-size: 32px;
+  text-align: center;
+  align-items: center;
 }
 
 .radio-input:checked+.radio-label {
   color: #ff0000;
   font-weight: bold;
+  text-align: center;
+}
+
+.finalResults {
+  position: relative;
+  width: 1200px;
+  height: 2400px;
+  border: 3px solid #73AD21;
+  text-align: center;
+  margin-left: 10%;
+  top: 80px;
+  border-radius: 30px;
+  border-width: 5px;
+}
+
+.correctAnswerSummary {
+  color: #1b771e;
+}
+
+.wrongAnswerSummary {
+  color: #a30d0d;
+}
+
+.separator {
+  border: "none";
+  height: "2px";
+  color: "#1cc1cc";
+  background-color: hsl(74, 87%, 59%);
+  color: #d11919;
+  color-scheme: 'yellow';
 }

@@ -12,7 +12,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 200vh;
+  min-height: 300vh;
 
 
   font-size: calc(10px + 2vmin);
@@ -63,13 +63,13 @@
   text-align: right;
   border-width:5px;
   top: 20%;
-  right: 30%;
+  right: 45%;
   margin-left: 30%;
   border-radius: 25px;
   border: 2px solid #73AD21;
   padding: 20px;
   width: 400px;
-  height: 250px;
+  height: 400px;
 }
 
 
@@ -82,15 +82,19 @@
   outline-width: 5px;
 
   border-width:5px;
+  width: 180px;
+  height: 40px;
   
   border-radius: 25px;
   border: 2px solid #73AD21;
   margin-right: 40px;
+  font-size: 0.5cm;
+  font-weight: 600;
   
 }
 
 .loginLabels {
-  font-size: medium;
+  font-size:0.8cm;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-weight: bolder;
 

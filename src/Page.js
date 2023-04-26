@@ -11,7 +11,7 @@ import './Page.css'
 
 
 
-const Page = ({ login }) => {
+const Page = ({ login, setRankingPage }) => {
 
     const dbGeographyUrl = 'api/db/geography'
     const dbHistoryUrl = 'api/db/history'
@@ -420,7 +420,7 @@ const Page = ({ login }) => {
                         (
                             <div>
                                 <LogoutButton />
-                                <RankingButton />
+                                <RankingButton setRankingPage={setRankingPage} />
 
                                 <form className="categoryChoiceForm" onSubmit={handleSubmitSelectCategory} >
 
@@ -544,7 +544,14 @@ const Page = ({ login }) => {
                                         Poprawna odpowiedź: {questionsArray[4].correctAnswer}</a><br />
                                 </div>
                             )}
-                        <SubmitFinalResultButton login={login} correctAnswers={collectedPoints} time={'0:12'} totalQuestions={5} />
+                        <SubmitFinalResultButton 
+                            login={login}
+                            setQuestionNumber={setQuestionNumber}
+                            setSelectedCategory={setSelectedCategory}
+                            setIsSubmitSelectCategory={setIsSubmitSelectCategory}
+                            correctAnswers={collectedPoints}
+                            time={'0:12'}
+                            totalQuestions={5} />
 
                     </div>)
             }

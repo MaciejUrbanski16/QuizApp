@@ -16,7 +16,8 @@ function App() {
 
   const [logged, setLogged] = useState(false);
 
-  const [currentForm, setCurrentForm] = useState('login')
+  const [currentForm, setCurrentForm] = useState('login');
+  const [rankingPage, setRankingPage] = useState(' ');
 
   const [login, setLogin] = useState();
 
@@ -40,24 +41,24 @@ function App() {
           <div className="App">
 
 
-              <div id="loginForms">
-                {
-                  currentForm === "login" ? (
+            <div id="loginForms">
+              {
+                currentForm === "login" ? (
+                  <a>
+                    <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} />
+                    <a className='registerLabel'>Don't you have account yet? - <button onClick={setRegisterForm}>Register here!</button></a>
+                  </a>
+
+                ) :
+                  (
                     <a>
-                      <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} />
-                      <a className='registerLabel'>Don't you have account yet? - <button onClick={setRegisterForm}>Register here!</button></a>
+                      <Registration />
+                      <a className='registerLabel'>Do you have already account? - <button onClick={setLoginForm}  >Log in here!</button></a>
                     </a>
 
-                  ) :
-                    (
-                      <a>
-                        <Registration />
-                        <a className='registerLabel'>Do you have already account? - <button onClick={setLoginForm}  >Log in here!</button></a>
-                      </a>
-
-                    )
-                }
-              </div>
+                  )
+              }
+            </div>
 
 
 
@@ -66,11 +67,23 @@ function App() {
           </div>
         ) :
           <a>
-            <Page login={login} />
-            <br />
+            {
+              rankingPage === ' ' ? (
+                <div>
+                  <Page login={login} setRankingPage={setRankingPage} />
+                  <br />
+                </div>
+              ) :
+                (
+                  <div>
+                    Ranking here
+                  </div>
+                )
+            }
           </a>
+
       }
-            </header>
+    </header>
 
 
 

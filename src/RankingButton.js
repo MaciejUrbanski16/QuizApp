@@ -3,10 +3,11 @@ import axios from './api/axios';
 
 const getRankingUrl = 'api/db/ranking/';
 
-const RankingButton = () => {
+const RankingButton = ({setRankingPage}) => {
 
     const handleClick = async ()  => {
         console.log("handle ranking button click")
+        setRankingPage('ranking');
         // TODO show page with ranking
 
         try{

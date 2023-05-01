@@ -10,11 +10,13 @@ import { useState } from "react";
 
 const loginUrl = 'api/login';
 
+const getRankingUrl = 'api/db/ranking/';
+
 const loggedSuccesful = <label>Login succesful</label>
 
 
 
-const Login = ({currentForm, setCurrentForm, userLogin, setUserLogin}) => {
+const Login = ({currentForm, setCurrentForm, userLogin, setUserLogin, data, setData}) => {
 
     const [login, setLogin] = useState();
     const [email, setEmail] = useState();
@@ -30,12 +32,62 @@ const Login = ({currentForm, setCurrentForm, userLogin, setUserLogin}) => {
         }
     }
 
+    const handleClick = async () => {
+        console.log("handle ranking button click")
+        // if(handleTimes === 1)
+        // {
+        //     setRankingPage('ranking');
+        //     setHandleTimes(0);
+        // }
+        //setHandleTimes(handleTimes + 1);
+        //setRankingPage('ranking');
+        //setHandleTimes(0);
+        //readRanking()
+
+        // TODO show page with ranking
+
+        try {
+            const response = await axios.get(getRankingUrl,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+
+                    }
+                }
+            )
+
+            console.log("Response after get ranking: ", response.data)
+            // console.log(response.accessToken)
+            // console.log(JSON.stringify(response))
+            setData(response.data);
+
+
+
+        }
+        catch (err) {
+            if (!err?.response) {
+                console.log('No internet connection')
+            }
+            else if (err.response?.status === 409) {
+                console.log('User name taken')
+            }
+            else {
+                console.log('Registration failed')
+            }
+
+            //errRef.current.focus()
+        }
+        console.log("Ranking array after read from server in login.js: " + data)
+    }
+
     const handleSubmit = async e => {
 
         e.preventDefault();
 
         console.log(login, email, password)
         setUserLogin(login);
+
+        handleClick();
 
         try {
             const response = await axios.post(loginUrl, JSON.stringify({
@@ -80,6 +132,8 @@ const Login = ({currentForm, setCurrentForm, userLogin, setUserLogin}) => {
             //errRef.current.focus()
         }
     }
+
+
 
     return (
         <form className='loginForm' onSubmit={handleSubmit}>

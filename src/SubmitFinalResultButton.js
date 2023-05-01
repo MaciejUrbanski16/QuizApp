@@ -4,7 +4,15 @@ import axios from './api/axios';
 const storeNewRankingEntryUrl = 'api/db/ranking/storeNewRankingEntry';
 const getRankingUrl = 'api/db/ranking/';
 
-const SubmitFinalResultButton = ({ login, setQuestionNumber, setSelectedCategory, setIsSubmitSelectCategory, correctAnswers, time, totalQuestions }) => {
+const SubmitFinalResultButton = ({
+    login,
+    setQuestionNumber,
+    setSelectedCategory,
+    setIsSubmitSelectCategory,
+    correctAnswers,
+    time,
+    totalQuestions
+                                }) => {
 
     const [rankingArray, setRankingArray] = useState([]);
     const [handleTimes, setHandleTimes] = useState(0);
@@ -92,7 +100,7 @@ const SubmitFinalResultButton = ({ login, setQuestionNumber, setSelectedCategory
 
             //errRef.current.focus()
         }
-        if(handleTimes === 1){
+        if (handleTimes === 1) {
             console.log("Before changing state to have new serie of uestions");
             setQuestionNumber(1);
             setIsSubmitSelectCategory(false);

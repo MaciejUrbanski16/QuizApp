@@ -11,12 +11,13 @@ import './Page.css'
 
 
 
-const Page = ({ login, setRankingPage }) => {
+const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) => {
 
     const dbGeographyUrl = 'api/db/geography'
     const dbHistoryUrl = 'api/db/history'
 
     console.log("login in Page", login);
+    console.log("Ranking data: " + data);
 
 
     //hardcoded to five questions
@@ -82,6 +83,7 @@ const Page = ({ login, setRankingPage }) => {
     const [questionsArray, setQuestionsArray] = useState([]);
     const [userAnswers, setUserAnswers] = useState([]);
     const [answerToCurrentQuestion, setAnswerToCurrentQuestion] = useState(' ')
+
 
     //const [counterOfQuestions, setCounterOfQuestions]
 
@@ -420,16 +422,26 @@ const Page = ({ login, setRankingPage }) => {
                         (
                             <div>
                                 <LogoutButton />
-                                <RankingButton setRankingPage={setRankingPage} />
+                                <RankingButton setRankingPage={setRankingPage} setRankingArray={setRankingArray} rankingArray={rankingArray} />
 
                                 <form className="categoryChoiceForm" onSubmit={handleSubmitSelectCategory} >
 
                                     <div >
+                                        <div>
+                                            Ranking
+                                            {/* <ul>
+                                                {data.response.map((item) => (
+                                                    <li key={item.login}>{item.login}</li>
+                                                ))}
+                                            </ul> */}
+                                        </div>
                                         <div className="fontForMsg">
                                             Jeśli chcesz wziąć udział w quizie wybierz kategorię spośród dostępnych<br /><br /><br />
                                         </div>
 
                                         <Select options={options} onChange={handleSelectCategory} autoFocus={true} menuColor='red' styles={styles} width='670px'
+
+
 
                                         /><br /><br /><br />
 
@@ -544,7 +556,7 @@ const Page = ({ login, setRankingPage }) => {
                                         Poprawna odpowiedź: {questionsArray[4].correctAnswer}</a><br />
                                 </div>
                             )}
-                        <SubmitFinalResultButton 
+                        <SubmitFinalResultButton
                             login={login}
                             setQuestionNumber={setQuestionNumber}
                             setSelectedCategory={setSelectedCategory}

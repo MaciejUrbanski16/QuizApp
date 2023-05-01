@@ -16,14 +16,6 @@ const Registration = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
-    const registration = <Registration />;
-
-    const [userHasAccount, setUserHasAccount] = useState(false)
-
-    function setLoginForm() {
-        
-    }
-
     const handleSubmit = async e => {
         
         e.preventDefault();
@@ -61,7 +53,6 @@ const Registration = () => {
                 console.log('Registration failed')
             }
 
-            //errRef.current.focus()
         }
     }
 

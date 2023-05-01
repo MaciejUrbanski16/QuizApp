@@ -84,58 +84,6 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
     const [userAnswers, setUserAnswers] = useState([]);
     const [answerToCurrentQuestion, setAnswerToCurrentQuestion] = useState(' ')
 
-
-    //const [counterOfQuestions, setCounterOfQuestions]
-
-
-
-    const handleSubmit = async e => {
-        //e.preventDefault();
-        console.log("Handle submit");
-
-        try {
-            const response = await axios.get(dbGeographyUrl, JSON.stringify({
-                id,
-                question,
-                answerA,
-                answerB,
-                answerC,
-                answerD,
-                correctAnswer
-            }),
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-
-                    }
-                }
-            )
-
-
-
-
-            console.log(response.data)
-
-            console.log(JSON.stringify(response))
-
-
-        } catch (error) {
-            if (!error?.response) {
-                console.log('No internet connection')
-            }
-            // else if (error.response?.status === 409) {
-            //     console.log('User name taken')
-            // }
-            // else {
-            //     console.log('Registration failed')
-            // }
-
-            //errRef.current.focus()
-        }
-
-
-    }
-
     const handleNextQuestion = async () => {
 
         setQuestionNumber(questionNumber + 1);
@@ -166,26 +114,14 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                 setAnswerC(response.data.question.answerC);
                 setAnswerD(response.data.question.answerD);
                 setCorrectAnswer(response.data.question.correctAnswer);
-                //submittedAnswers.push(response);
-                // submittedAnswers.push({
-                //     "question": response.data.question.question,
-                //     "correctAnswer": response.data.question.correctAnswer,
-                //     "answerA": response.data.question.answerA,
-                //     "answerB": response.data.question.answerB,
-                //     "answerC": response.data.question.answerC,
-                //     "answerD": response.data.question.answerD
-                // });
+
                 submittedAnswers[questionNumber].question = question;
                 submittedAnswers[questionNumber].correctAnswer = correctAnswer;
                 submittedAnswers[questionNumber].answerA = answerA;
                 submittedAnswers[questionNumber].answerA = answerB;
                 submittedAnswers[questionNumber].answerA = answerC;
                 submittedAnswers[questionNumber].answerA = answerD;
-                //counterOfQuestio;
 
-                //setFirstQuestion(response);
-                //questionsArray.push(response);
-                //setQuestionsArray(questionsArray);
                 setQuestionsArray([...questionsArray, {
                     "question": response.data.question.question,
                     "answerA": response.data.question.answerA,
@@ -229,14 +165,12 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                 if (!error?.response) {
                     console.log('No internet connection')
                 }
-                // else if (error.response?.status === 409) {
-                //     console.log('User name taken')
-                // }
-                // else {
-                //     console.log('Registration failed')
-                // }
-
-                //errRef.current.focus()
+                else if (error.response?.status === 409) {
+                    console.log('User name taken')
+                }
+                else {
+                    console.log('Registration failed')
+                }
             }
         }
     }
@@ -427,14 +361,6 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                                 <form className="categoryChoiceForm" onSubmit={handleSubmitSelectCategory} >
 
                                     <div >
-                                        <div>
-                                            Ranking
-                                            {/* <ul>
-                                                {data.response.map((item) => (
-                                                    <li key={item.login}>{item.login}</li>
-                                                ))}
-                                            </ul> */}
-                                        </div>
                                         <div className="fontForMsg">
                                             Jeśli chcesz wziąć udział w quizie wybierz kategorię spośród dostępnych<br /><br /><br />
                                         </div>

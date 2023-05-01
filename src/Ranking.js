@@ -19,7 +19,6 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
         .then(response => response.json())
         .then(data => setData(data.response))
         .catch(error => console.log(error));
-        //setIsFetched(isFetched + 1)
         console.log("Ranking array in App.js: " + data);
     }
 

@@ -4,7 +4,9 @@ import axios from './api/axios'
 
 import './Ranking.css'
 
-const getRankingUrl = 'http://localhost:3001/api/db/ranking/';
+const getRankingGeographyUrl = 'http://localhost:3001/api/db/ranking/geografia/';
+const getRankingPhysicsUrl = 'http://localhost:3001/api/db/ranking/fizyka/';
+const getRankingMathUrl = 'http://localhost:3001/api/db/ranking/matematyka/';
 
 const options = [
     { value: 'geografia', label: 'Geografia', color: '#abcfca' },
@@ -29,7 +31,7 @@ const customStyles = {
       })
   };
 
-const Table = ({ data }) => {
+const Table = ({ data, rankingType}) => {
 
     const dataWithIndex = data.map((item, index) => {
         return {
@@ -58,7 +60,7 @@ const Table = ({ data }) => {
                 <td>{item.login}</td>
                 <td>{item.correctAnswers}</td>
                 <td>{item.time}</td>
-                <td>Geografia</td>
+                <td>{rankingType}</td>
               </tr>
             );
           } else {
@@ -68,7 +70,8 @@ const Table = ({ data }) => {
                 <td>{item.login}</td>
                 <td>{item.correctAnswers}</td>
                 <td>{item.time}</td>
-                <td>Geografia</td>
+                <td>{rankingType}</td>
+                
               </tr>
             );
           }
@@ -83,6 +86,10 @@ const Table = ({ data }) => {
 const Ranking = ({ setRankingPage, rankingArray }) => {
 
     const [data, setData] = useState([]);
+
+    const [geographyRanking, setGeographyRanking] = useState([]);
+    const [physicsRanking, setPhysicsRanking] = useState([]);
+    const [mathRanking, setMathRanking] = useState([]);
 
     const [rankingType, setRankingType] = useState("geografia");
 
@@ -99,27 +106,27 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
         //     .catch(error => console.log(error));
         // console.log("Ranking array in App.js: " + data);
         // }
-        if(rankingType === "geografia")
+        //if(rankingType === "geografia")
         {
-            fetch(getRankingUrl)
+            fetch(getRankingGeographyUrl)
             .then(response => response.json())
-            .then(data => setData(data.response))
+            .then(data => setGeographyRanking(data.response))
             .catch(error => console.log(error));
             console.log("Geografia - Ranking array in App.js: " + data);
         }
-        else if(rankingType === "fizyka")
+        //else if(rankingType === "fizyka")
         {
-            fetch(getRankingUrl)
+            fetch(getRankingPhysicsUrl)
             .then(response => response.json())
-            .then(data => setData(data.response))
+            .then(data => setPhysicsRanking(data.response))
             .catch(error => console.log(error));
             console.log("Fizyka - Ranking array in App.js: " + data);
         }
-        else if(rankingType === "matematyka")
+        //else if(rankingType === "matematyka")
         {
-            fetch(getRankingUrl)
+            fetch(getRankingMathUrl)
             .then(response => response.json())
-            .then(data => setData(data.response))
+            .then(data => setMathRanking(data.response))
             .catch(error => console.log(error));
             console.log("Matemetyka - Ranking array in App.js: " + data);
         }
@@ -128,11 +135,35 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
     const handleSelectRankingType = async (selectedOption) => {
         console.log(`Option selected:`, selectedOption.value);
         setRankingType(selectedOption.value)
+        fetchData();
+
+        if(rankingType === "fizyka")
+        {
+          setData(geographyRanking);
+        }
+        else if(rankingType === "geografia")
+        {
+          setData(physicsRanking);
+        }
+        else if(rankingType === "matematyka")
+        {
+          setData(mathRanking);
+        }
     }
 
     const handleClick = async () => {
         setRankingPage(' ');
     }
+    const handleClickConfirm = async () => {
+      // if(rankingType === "geografia")
+      // {
+      //   setData(geographyRanking);
+      // }
+      // else if(rankingType === "fizyka")
+      // {
+      //   setData(physicsRanking);
+      // }
+  }
 
     return (
         <div className="table_container">
@@ -141,9 +172,10 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
             <Select options={options} styles={customStyles} onChange={handleSelectRankingType} autoFocus={true} menuColor='red'/>
              </div><br/>
 
-            <Table data={data} />
+            <Table data={data} rankingType={rankingType} />
 
             <button onClick={handleClick}>Powrót</button>
+            <button onClick={handleClickConfirm}>Zatwierdz</button>
         </div>
     )
 }

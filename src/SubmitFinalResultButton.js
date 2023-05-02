@@ -7,6 +7,7 @@ const getRankingUrl = 'api/db/ranking/';
 const SubmitFinalResultButton = ({
     login,
     setQuestionNumber,
+    selectedCategory,
     setSelectedCategory,
     setIsSubmitSelectCategory,
     correctAnswers,
@@ -15,19 +16,23 @@ const SubmitFinalResultButton = ({
                                 }) => {
 
     const [handleTimes, setHandleTimes] = useState(0);
+    const [domain, setDomain] = useState(' ');
 
     const handleClick = async () => {
         console.log("handle submit final result button click")
-        console.log("From page: login: ", login, " correctanswers: ", correctAnswers, " time: ", time, " totalQQuestions: ", totalQuestions)
+        setDomain(selectedCategory.value);
+        console.log("From page: login: ", login, " correctanswers: ", correctAnswers, " time: ", time, " totalQQuestions: ", totalQuestions, " domain ", domain)
 
         let responseData = []
+        
 
         try {
             const response = await axios.post(storeNewRankingEntryUrl, JSON.stringify({
                 login,
                 correctAnswers,
                 time,
-                totalQuestions
+                totalQuestions,
+                domain
             }),
                 {
                     headers: {

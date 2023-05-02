@@ -50,12 +50,12 @@ function App() {
             <div id="loginForms">
               {
                 currentForm === "login" ? (
-                  <a>
+                  <div>
 
                     <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} data={data} setData={setData} />
                     <a className='registerLabel'>Don't you have account yet? - <button onClick={setRegisterForm}>Register here!</button></a>
 
-                  </a>
+                  </div>
 
                 ) :
                   (

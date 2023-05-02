@@ -14,7 +14,8 @@ import './Page.css'
 const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) => {
 
     const dbGeographyUrl = 'api/db/geography'
-    const dbHistoryUrl = 'api/db/history'
+    const dbMathUrl = 'api/db/math'
+    const dbPhysicsUrl = 'api/db/physics'
 
     console.log("login in Page", login);
     console.log("Ranking data: " + data);
@@ -173,6 +174,177 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                 }
             }
         }
+        else if (selectedCategory.value === 'matematyka') {
+            try {
+                const response = await axios.get(dbMathUrl, JSON.stringify({
+                    id,
+                    question,
+                    answerA,
+                    answerB,
+                    answerC,
+                    answerD,
+                    correctAnswer
+                }),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                )
+
+                setId(response.data.question.id);
+                setQuestion(response.data.question.question);
+                setAnswerA(response.data.question.answerA);
+                setAnswerB(response.data.question.answerB);
+                setAnswerC(response.data.question.answerC);
+                setAnswerD(response.data.question.answerD);
+                setCorrectAnswer(response.data.question.correctAnswer);
+
+                submittedAnswers[questionNumber].question = question;
+                submittedAnswers[questionNumber].correctAnswer = correctAnswer;
+                submittedAnswers[questionNumber].answerA = answerA;
+                submittedAnswers[questionNumber].answerA = answerB;
+                submittedAnswers[questionNumber].answerA = answerC;
+                submittedAnswers[questionNumber].answerA = answerD;
+
+                setQuestionsArray([...questionsArray, {
+                    "question": response.data.question.question,
+                    "answerA": response.data.question.answerA,
+                    "answerB": response.data.question.answerB,
+                    "answerC": response.data.question.answerC,
+                    "answerD": response.data.question.answerD,
+                    "correctAnswer": response.data.question.correctAnswer
+                }]);
+                console.log("Table size: ", questionsArray.length, "questions array length: ", questionsArray.length
+                    , "submitted: ", JSON.stringify(questionsArray));
+
+
+
+                console.log(response.data.question.question)
+
+                console.log(JSON.stringify(response))
+                console.log("Question walidation")
+
+                if (answerToCurrentQuestion === correctAnswer[0]) {
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setCollectedPoints(collectedPoints + 1)
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": true
+                    }])
+                }
+                else {
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": false
+                    }])
+                }
+                console.log("Answer to current question: " + answerToCurrentQuestion + " correctAnswer: " + correctAnswer)
+                setAnswerToCurrentQuestion(' ');
+                console.log("Points: " + collectedPoints + " size of userAnswers: " + userAnswers.length);
+
+
+
+            } catch (error) {
+                if (!error?.response) {
+                    console.log('No internet connection')
+                }
+                else if (error.response?.status === 409) {
+                    console.log('User name taken')
+                }
+                else {
+                    console.log('Registration failed')
+                }
+            }
+        }
+        else if (selectedCategory.value === 'fizyka') {
+            try {
+                const response = await axios.get(dbPhysicsUrl, JSON.stringify({
+                    id,
+                    question,
+                    answerA,
+                    answerB,
+                    answerC,
+                    answerD,
+                    correctAnswer
+                }),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                )
+
+                setId(response.data.question.id);
+                setQuestion(response.data.question.question);
+                setAnswerA(response.data.question.answerA);
+                setAnswerB(response.data.question.answerB);
+                setAnswerC(response.data.question.answerC);
+                setAnswerD(response.data.question.answerD);
+                setCorrectAnswer(response.data.question.correctAnswer);
+
+                submittedAnswers[questionNumber].question = question;
+                submittedAnswers[questionNumber].correctAnswer = correctAnswer;
+                submittedAnswers[questionNumber].answerA = answerA;
+                submittedAnswers[questionNumber].answerA = answerB;
+                submittedAnswers[questionNumber].answerA = answerC;
+                submittedAnswers[questionNumber].answerA = answerD;
+
+                setQuestionsArray([...questionsArray, {
+                    "question": response.data.question.question,
+                    "answerA": response.data.question.answerA,
+                    "answerB": response.data.question.answerB,
+                    "answerC": response.data.question.answerC,
+                    "answerD": response.data.question.answerD,
+                    "correctAnswer": response.data.question.correctAnswer
+                }]);
+                console.log("Table size: ", questionsArray.length, "questions array length: ", questionsArray.length
+                    , "submitted: ", JSON.stringify(questionsArray));
+
+
+
+                console.log(response.data.question.question)
+
+                console.log(JSON.stringify(response))
+                console.log("Question walidation")
+
+                if (answerToCurrentQuestion === correctAnswer[0]) {
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setCollectedPoints(collectedPoints + 1)
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": true
+                    }])
+                }
+                else {
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": false
+                    }])
+                }
+                console.log("Answer to current question: " + answerToCurrentQuestion + " correctAnswer: " + correctAnswer)
+                setAnswerToCurrentQuestion(' ');
+                console.log("Points: " + collectedPoints + " size of userAnswers: " + userAnswers.length);
+
+
+
+            } catch (error) {
+                if (!error?.response) {
+                    console.log('No internet connection')
+                }
+                else if (error.response?.status === 409) {
+                    console.log('User name taken')
+                }
+                else {
+                    console.log('Registration failed')
+                }
+            }
+        }
+        else {
+            console.log("Unsupported selected category!!!");
+        }
     }
 
     const handleSubmitSelectCategory = async () => {
@@ -189,6 +361,165 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                     answerC,
                     answerD,
                     correctAnswer
+
+                }),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                )
+
+                setId(response.data.question.id);
+                setQuestion(response.data.question.question);
+                setAnswerA(response.data.question.answerA);
+                setAnswerB(response.data.question.answerB);
+                setAnswerC(response.data.question.answerC);
+                setAnswerD(response.data.question.answerD);
+                setCorrectAnswer(response.data.question.correctAnswer);
+                // submittedAnswers.push({
+                //     "question": response.data.question.question,
+                //     "correctAnswer": response.data.question.correctAnswer,
+                //     "answerA": response.data.question.answerA,
+                //     "answerB": response.data.question.answerB,
+                //     "answerC": response.data.question.answerC,
+                //     "answerD": response.data.question.answerD
+                // })
+                setQuestionsArray([...questionsArray, {
+                    "question": response.data.question.question,
+                    "answerA": response.data.question.answerA,
+                    "answerB": response.data.question.answerB,
+                    "answerC": response.data.question.answerC,
+                    "answerD": response.data.question.answerD,
+                    "correctAnswer": response.data.question.correctAnswer
+                }]);
+                console.log("Table size: ", submittedAnswers.length);
+                console.log(response.data.question.question)
+
+                if (answerToCurrentQuestion === correctAnswer[0]) {
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setCollectedPoints(collectedPoints + 1)
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": true
+                    }])
+                }
+                else {
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": false
+                    }])
+                }
+
+
+                console.log(JSON.stringify(response))
+
+
+            } catch (error) {
+                if (!error?.response) {
+                    console.log('No internet connection')
+                }
+                // else if (error.response?.status === 409) {
+                //     console.log('User name taken')
+                // }
+                // else {
+                //     console.log('Registration failed')
+                // }
+
+                //errRef.current.focus()
+            }
+        }
+        else if (selectedCategory.value === 'fizyka') {
+            try {
+                const response = await axios.get(dbPhysicsUrl, JSON.stringify({
+                    id,
+                    question,
+                    answerA,
+                    answerB,
+                    answerC,
+                    answerD,
+                    correctAnswer
+
+                }),
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                )
+
+                setId(response.data.question.id);
+                setQuestion(response.data.question.question);
+                setAnswerA(response.data.question.answerA);
+                setAnswerB(response.data.question.answerB);
+                setAnswerC(response.data.question.answerC);
+                setAnswerD(response.data.question.answerD);
+                setCorrectAnswer(response.data.question.correctAnswer);
+                // submittedAnswers.push({
+                //     "question": response.data.question.question,
+                //     "correctAnswer": response.data.question.correctAnswer,
+                //     "answerA": response.data.question.answerA,
+                //     "answerB": response.data.question.answerB,
+                //     "answerC": response.data.question.answerC,
+                //     "answerD": response.data.question.answerD
+                // })
+                setQuestionsArray([...questionsArray, {
+                    "question": response.data.question.question,
+                    "answerA": response.data.question.answerA,
+                    "answerB": response.data.question.answerB,
+                    "answerC": response.data.question.answerC,
+                    "answerD": response.data.question.answerD,
+                    "correctAnswer": response.data.question.correctAnswer
+                }]);
+                console.log("Table size: ", submittedAnswers.length);
+                console.log(response.data.question.question)
+
+                if (answerToCurrentQuestion === correctAnswer[0]) {
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setCollectedPoints(collectedPoints + 1)
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": true
+                    }])
+                }
+                else {
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    setUserAnswers([...userAnswers, {
+                        "userAnswer": answerToCurrentQuestion,
+                        "isCorrectAnswer": false
+                    }])
+                }
+
+
+                console.log(JSON.stringify(response))
+
+
+            } catch (error) {
+                if (!error?.response) {
+                    console.log('No internet connection')
+                }
+                // else if (error.response?.status === 409) {
+                //     console.log('User name taken')
+                // }
+                // else {
+                //     console.log('Registration failed')
+                // }
+
+                //errRef.current.focus()
+            }
+        }
+        else if (selectedCategory.value === 'matematyka') {
+            try {
+                const response = await axios.get(dbMathUrl, JSON.stringify({
+                    id,
+                    question,
+                    answerA,
+                    answerB,
+                    answerC,
+                    answerD,
+                    correctAnswer
+
                 }),
                     {
                         headers: {
@@ -260,13 +591,10 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
     }
 
     const handleSelectCategory = async (selectedOption) => {
-        console.log(`Option selected:`, selectedOption);
+        console.log("Option selected: ", selectedOption.value);
         setSelectedCategory(selectedOption);
     }
 
-    function setSelectedCategoryAsNone() {
-        handleSelectCategory();
-    }
 
     function handleUserAnswer(answer) {
         console.log("handle user answer: " + answer);
@@ -315,7 +643,8 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
         <div>
             {
                 questionNumber !== 6 ? (
-                    selectedCategory.value === 'geografia' && isSubmitSelectCategory === true ? (
+                    (selectedCategory.value === 'geografia' || selectedCategory.value === 'fizyka' || selectedCategory.value === 'matematyka')
+                     && isSubmitSelectCategory === true ? (
                         <p>
                             Pytanie numer {questionNumber}<br />
 
@@ -392,14 +721,14 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                         C: {questionsArray[0].answerC} <br />
                         D: {questionsArray[0].answerD} <br /><br />
                         {userAnswers[0].isCorrectAnswer === true ? (<div>
-                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[0].userAnswer}<br />
-                                Poprawna odpowiedź: {questionsArray[0].correctAnswer}</a><br />
+                            <div className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[0].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[0].correctAnswer}</div><br />
                         </div>
                         ) :
                             (
                                 <div>
-                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[0].userAnswer}<br />
-                                        Poprawna odpowiedź: {questionsArray[0].correctAnswer}</a><br />
+                                    <div className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[0].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[0].correctAnswer}</div><br />
                                 </div>
                             )}
 
@@ -412,14 +741,14 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                         C: {questionsArray[1].answerC} <br />
                         D: {questionsArray[1].answerD} <br /><br />
                         {userAnswers[1].isCorrectAnswer === true ? (<div>
-                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[1].userAnswer}<br />
-                                Poprawna odpowiedź: {questionsArray[1].correctAnswer}</a><br />
+                            <div className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[1].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[1].correctAnswer}</div><br />
                         </div>
                         ) :
                             (
                                 <div>
-                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[1].userAnswer}<br />
-                                        Poprawna odpowiedź: {questionsArray[1].correctAnswer}</a><br />
+                                    <div className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[1].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[1].correctAnswer}</div><br />
                                 </div>
                             )}
                         <hr
@@ -431,14 +760,14 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                         C: {questionsArray[2].answerC} <br />
                         D: {questionsArray[2].answerD} <br /><br />
                         {userAnswers[2].isCorrectAnswer === true ? (<div>
-                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[2].userAnswer}<br />
-                                Poprawna odpowiedź: {questionsArray[2].correctAnswer}</a><br />
+                            <div className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[2].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[2].correctAnswer}</div><br />
                         </div>
                         ) :
                             (
                                 <div>
-                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[2].userAnswer}<br />
-                                        Poprawna odpowiedź: {questionsArray[2].correctAnswer}</a><br />
+                                    <div className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[2].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[2].correctAnswer}</div><br />
                                 </div>
                             )}
                         <hr
@@ -450,14 +779,14 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                         C: {questionsArray[3].answerC} <br />
                         D: {questionsArray[3].answerD} <br /> <br />
                         {userAnswers[3].isCorrectAnswer === true ? (<div>
-                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[3].userAnswer}<br />
-                                Poprawna odpowiedź: {questionsArray[3].correctAnswer}</a><br />
+                            <div className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[3].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[3].correctAnswer}</div><br />
                         </div>
                         ) :
                             (
                                 <div>
-                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[3].userAnswer}<br />
-                                        Poprawna odpowiedź: {questionsArray[3].correctAnswer}</a><br />
+                                    <div className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[3].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[3].correctAnswer}</div><br />
                                 </div>
                             )}
                         <hr
@@ -472,19 +801,20 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                         C: {questionsArray[4].answerC} <br />
                         D: {questionsArray[4].answerD} <br /> <br />
                         {userAnswers[4].isCorrectAnswer === true ? (<div>
-                            <a className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[4].userAnswer}<br />
-                                Poprawna odpowiedź: {questionsArray[4].correctAnswer}</a><br />
+                            <div className="correctAnswerSummary">Twoja odpowiedź: {userAnswers[4].userAnswer}<br />
+                                Poprawna odpowiedź: {questionsArray[4].correctAnswer}</div><br />
                         </div>
                         ) :
                             (
                                 <div>
-                                    <a className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[4].userAnswer}<br />
-                                        Poprawna odpowiedź: {questionsArray[4].correctAnswer}</a><br />
+                                    <div className="wrongAnswerSummary">Twoja odpowiedź: {userAnswers[4].userAnswer}<br />
+                                        Poprawna odpowiedź: {questionsArray[4].correctAnswer}</div><br />
                                 </div>
                             )}
                         <SubmitFinalResultButton
                             login={login}
                             setQuestionNumber={setQuestionNumber}
+                            selectedCategory={selectedCategory}
                             setSelectedCategory={setSelectedCategory}
                             setIsSubmitSelectCategory={setIsSubmitSelectCategory}
                             correctAnswers={collectedPoints}

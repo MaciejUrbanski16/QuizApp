@@ -84,22 +84,50 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
 
     const [data, setData] = useState([]);
 
-    const [rankingType, setRankingType] = useState("ogólny");
+    const [rankingType, setRankingType] = useState("geografia");
 
     useEffect(() => {
         fetchData();
     }, []);
 
     function fetchData() {
-        fetch(getRankingUrl)
+        // if(rankingType === "ogolny")
+        // {
+        // fetch(getRankingUrl)
+        //     .then(response => response.json())
+        //     .then(data => setData(data.response))
+        //     .catch(error => console.log(error));
+        // console.log("Ranking array in App.js: " + data);
+        // }
+        if(rankingType === "geografia")
+        {
+            fetch(getRankingUrl)
             .then(response => response.json())
             .then(data => setData(data.response))
             .catch(error => console.log(error));
-        console.log("Ranking array in App.js: " + data);
+            console.log("Geografia - Ranking array in App.js: " + data);
+        }
+        else if(rankingType === "fizyka")
+        {
+            fetch(getRankingUrl)
+            .then(response => response.json())
+            .then(data => setData(data.response))
+            .catch(error => console.log(error));
+            console.log("Fizyka - Ranking array in App.js: " + data);
+        }
+        else if(rankingType === "matematyka")
+        {
+            fetch(getRankingUrl)
+            .then(response => response.json())
+            .then(data => setData(data.response))
+            .catch(error => console.log(error));
+            console.log("Matemetyka - Ranking array in App.js: " + data);
+        }
     }
 
-    const handleSelectRankingType = () => {
-
+    const handleSelectRankingType = async (selectedOption) => {
+        console.log(`Option selected:`, selectedOption.value);
+        setRankingType(selectedOption.value)
     }
 
     const handleClick = async () => {

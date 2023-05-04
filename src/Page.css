@@ -98,6 +98,32 @@
   background-color: rgb(175, 156, 11);
 }
 
+.rankingBackButton {
+  position: relative;
+  width: 250px;
+  height: 75px;
+  color: rgb(15, 76, 189);
+  outline-color: rgb(47, 0, 255);
+  outline-width: 5px;
+
+  margin-right: 0%;
+  margin-top: 5%;
+
+  top: 0%;
+  right: -40%;
+
+  font-size: medium;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+
+  border-width: 12px;
+
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  background-color: rgb(175, 156, 11);
+
+}
+
 .logoutButton {
   position: absolute;
   width: 250px;
@@ -249,4 +275,10 @@ p {
   background-color: hsl(74, 87%, 59%);
   color: #d11919;
   color-scheme: 'yellow';
+}
+
+#pomodoro-timer{
+  display: flex;
+  justify-content: center; 
+  margin-top: 25px;
 }

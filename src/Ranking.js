@@ -17,16 +17,19 @@ const options = [
 const customStyles = {
     control: (base) => ({
       ...base,
-      position: 'fixed',
-      top: '20px',
-      right: '20px',
-      width: '600px'
+      //position: 'fixed',
+      // top: '20px',
+      // right: '20px',
+      left: '31%',
+
+      width: '600px',
     }),
     menu: (base) => ({
         ...base,  
-        position: 'fixed',
-        top: '130px',
-        right: '20px',
+       // position: 'fixed',
+        // top: '130px',
+        // right: '20px',
+        left: '31%',
         width: '600px'
       })
   };
@@ -169,13 +172,14 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
         <div className="table_container">
            
             <div className="ranking_head">Ranking {rankingType}
-            <Select options={options} styles={customStyles} onChange={handleSelectRankingType} autoFocus={true} menuColor='red'/>
+            
              </div><br/>
+             <Select options={options} styles={customStyles} onChange={handleSelectRankingType} autoFocus={true} menuColor='red'/><br/>
 
             <Table data={data} rankingType={rankingType} />
 
-            <button onClick={handleClick}>Powrót</button>
-            <button onClick={handleClickConfirm}>Zatwierdz</button>
+            <button className="rankingBackButton" onClick={handleClick}>Powrót</button>
+            
         </div>
     )
 }

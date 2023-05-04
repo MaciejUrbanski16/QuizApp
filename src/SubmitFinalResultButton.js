@@ -21,16 +21,44 @@ const SubmitFinalResultButton = ({
     const handleClick = async () => {
         console.log("handle submit final result button click")
         setDomain(selectedCategory.value);
-        console.log("From page: login: ", login, " correctanswers: ", correctAnswers, " time: ", time, " totalQQuestions: ", totalQuestions, " domain ", domain)
 
         let responseData = []
-        
+        time = 59;
+        let t='';
+        if(time >= 60){
+            let min = (time - time  % 60) / 60;
+            t = ''+min+':'+time%60
+            if(time % 60 === 0)
+            {
+                t = ''+min+':00';
+            }
+            else if(time%60 < 10)
+            {
+                t = ''+min+':0'+time%60
+            }
+            else{
+                t = ''+min+':'+time%60
+            }
+        }
+        else{
+            if(time >= 10)
+            {
+                t='0:'+time
+            }
+            else{
+                t='0:0'+time
+            }
+            
+        }
+
+        console.log("From page: login: ", login, " correctanswers: ", correctAnswers, " time: ", t, " totalQQuestions: ", totalQuestions, " domain ", domain)
+
 
         try {
             const response = await axios.post(storeNewRankingEntryUrl, JSON.stringify({
                 login,
                 correctAnswers,
-                time,
+                time: t,
                 totalQuestions,
                 domain
             }),

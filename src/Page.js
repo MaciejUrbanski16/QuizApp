@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Select, { components } from 'react-select'
 
 import RankingButton from "./RankingButton";
 import LogoutButton from "./LogoutButton";
 import SubmitFinalResultButton from "./SubmitFinalResultButton";
+
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import axios from './api/axios'
 
@@ -19,6 +21,30 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
 
     console.log("login in Page", login);
     console.log("Ranking data: " + data);
+
+    const [counter, setCounter] = useState(30);
+    const [isActive, setIsActive] = useState(true);
+
+    const [totalTimeOfAnserwing, setTotalTimeOfAnswering] = useState(0);
+
+    const toggle = () => {
+        setIsActive(!isActive);
+    };
+
+    const reset = () => {
+        setCounter(0);
+        setIsActive(false);
+    };
+
+    useEffect(() => {
+        if (isActive) {
+            const timer =
+                counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+            return () => clearInterval(timer);
+        } else if (!isActive && counter !== 0) {
+            clearInterval(counter);
+        }
+    }, [counter, isActive]);
 
 
     //hardcoded to five questions
@@ -88,7 +114,11 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
     const handleNextQuestion = async () => {
 
         setQuestionNumber(questionNumber + 1);
-        console.log("Next slajd plis " + selectedCategory.value + " question number: " + questionNumber);
+        console.log("Next slajd plis " + selectedCategory.value + " question number: " + questionNumber + " counter: " + counter);
+        setTotalTimeOfAnswering(totalTimeOfAnserwing + (30 - counter));
+        reset();
+        setCounter(30);
+        setIsActive(true);
 
         if (selectedCategory.value === 'geografia') {
             try {
@@ -131,8 +161,8 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                     "answerD": response.data.question.answerD,
                     "correctAnswer": response.data.question.correctAnswer
                 }]);
-                console.log("Table size: ", questionsArray.length, "questions array length: ", questionsArray.length
-                    , "submitted: ", JSON.stringify(questionsArray));
+                //console.log("Table size: ", questionsArray.length, "questions array length: ", questionsArray.length
+                //    , "submitted: ", JSON.stringify(questionsArray));
 
 
 
@@ -142,21 +172,21 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                 console.log("Question walidation")
 
                 if (answerToCurrentQuestion === correctAnswer[0]) {
-                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer[0]);
                     setCollectedPoints(collectedPoints + 1)
                     setUserAnswers([...userAnswers, {
-                        "userAnswer": answerToCurrentQuestion,
-                        "isCorrectAnswer": true
+                        userAnswer: answerToCurrentQuestion,
+                        isCorrectAnswer: true
                     }])
                 }
                 else {
-                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer[0]);
                     setUserAnswers([...userAnswers, {
-                        "userAnswer": answerToCurrentQuestion,
-                        "isCorrectAnswer": false
+                        userAnswer: answerToCurrentQuestion,
+                        isCorrectAnswer: false
                     }])
                 }
-                console.log("Answer to current question: " + answerToCurrentQuestion + " correctAnswer: " + correctAnswer)
+                console.log("Answer to current question: " + answerToCurrentQuestion + " correctAnswer: " + correctAnswer[0])
                 setAnswerToCurrentQuestion(' ');
                 console.log("Points: " + collectedPoints + " size of userAnswers: " + userAnswers.length);
 
@@ -348,8 +378,13 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
     }
 
     const handleSubmitSelectCategory = async () => {
-        console.log("handleSelectSubmitCategory")
+        
         setIsSubmitSelectCategory(true);
+
+        //setTotalTimeOfAnswering(totalTimeOfAnserwing + (30 - counter));
+        reset();
+        setCounter(30);
+        setIsActive(true);
 
         if (selectedCategory.value === 'geografia') {
             try {
@@ -394,26 +429,28 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                     "correctAnswer": response.data.question.correctAnswer
                 }]);
                 console.log("Table size: ", submittedAnswers.length);
-                console.log(response.data.question.question)
+                //console.log(response.data.question.question)
 
                 if (answerToCurrentQuestion === correctAnswer[0]) {
-                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    console.log("Correct answer " + answerToCurrentQuestion + " " + correctAnswer[0]);
                     setCollectedPoints(collectedPoints + 1)
                     setUserAnswers([...userAnswers, {
-                        "userAnswer": answerToCurrentQuestion,
-                        "isCorrectAnswer": true
+                        userAnswer: answerToCurrentQuestion,
+                        isCorrectAnswer: true
                     }])
                 }
                 else {
-                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer);
+                    console.log("Wrong answer " + answerToCurrentQuestion + " " + correctAnswer[0]);
                     setUserAnswers([...userAnswers, {
-                        "userAnswer": answerToCurrentQuestion,
-                        "isCorrectAnswer": false
+                        userAnswer: answerToCurrentQuestion,
+                        isCorrectAnswer: false
                     }])
                 }
+                console.log("Answer to current question: " + answerToCurrentQuestion + " correctAnswer: " + correctAnswer[0])
+                console.log("Points: " + collectedPoints + " size of userAnswers: " + userAnswers.length);
 
 
-                console.log(JSON.stringify(response))
+                //console.log(JSON.stringify(response))
 
 
             } catch (error) {
@@ -644,10 +681,30 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
             {
                 questionNumber !== 6 ? (
                     (selectedCategory.value === 'geografia' || selectedCategory.value === 'fizyka' || selectedCategory.value === 'matematyka')
-                     && isSubmitSelectCategory === true ? (
+                        && isSubmitSelectCategory === true ? (
                         <p>
-                            Pytanie numer {questionNumber}<br />
 
+                            Pytanie numer {questionNumber}<br />
+                            Pozostały czas na udzielenie odpowiedzi
+                            <div id="pomodoro-timer">
+                                {" "}
+                                <CountdownCircleTimer
+                                    onComplete={() => {
+                                        console.log("Timer expired");
+                                        handleNextQuestion();
+                                        //setTotalTimeOfAnswering(totalTimeOfAnserwing + 30);
+                                        setCounter(30);
+                                        setIsActive(true);
+                                        return [true]; // repeat animation in 1.5 seconds
+                                    }}
+                                    isPlaying
+                                    duration={counter}
+                                    colors="#E5007B"
+                                >
+                                    
+                                </CountdownCircleTimer>
+                            </div>
+                            <div>{counter}</div>
                             <div className="questionAndAnswers" onChange={(e) => handleUserAnswer(e.target.value)}>
 
 
@@ -818,8 +875,11 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                             setSelectedCategory={setSelectedCategory}
                             setIsSubmitSelectCategory={setIsSubmitSelectCategory}
                             correctAnswers={collectedPoints}
-                            time={'0:12'}
+                            time={totalTimeOfAnserwing}
                             totalQuestions={5} />
+                            <div>
+                                Total time of anwsering {totalTimeOfAnserwing}
+                            </div>
 
                     </div>)
             }

@@ -741,7 +741,7 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                     ) :
                         (
                             <div>
-                                <LogoutButton />
+                                <LogoutButton /><br/>
                                 <RankingButton setRankingPage={setRankingPage} setRankingArray={setRankingArray} rankingArray={rankingArray} />
 
                                 <form className="categoryChoiceForm" onSubmit={handleSubmitSelectCategory} >

@@ -16,11 +16,42 @@ const Registration = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    const [validEntries, setValidEntries] = useState(0);
+
     const handleSubmit = async e => {
         
         e.preventDefault();
 
         console.log(login, email, password)
+        if(login.length < 6)
+        {
+            console.log("Too short login - at least 6 characters");
+            return;
+        }
+        else if(login.length > 24){
+            console.log("Too long login - at most 24 characters");
+            return;
+        }
+        if(email.length < 6)
+        {
+            console.log("Too short email - at least 6 characters");
+            return;
+        }
+        else if(email.length > 24){
+            console.log("Too long email - at most 24 characters");
+            return;
+        }
+        if(password.length < 6)
+        {
+            console.log("Too short password - at least 6 characters");
+            return;
+        }
+        else if(password.length > 24){
+            console.log("Too long password - at most 24 characters");
+            return;
+        }
+
+        setValidEntries(1);
 
         try{
             const response = await axios.post(registerUrl, JSON.stringify({

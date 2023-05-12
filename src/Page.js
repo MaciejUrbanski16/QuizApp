@@ -741,14 +741,15 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                     ) :
                         (
                             <div>
-                                <LogoutButton /><br/>
+                                <div className="twoButtons">
+                                <LogoutButton />
                                 <RankingButton setRankingPage={setRankingPage} setRankingArray={setRankingArray} rankingArray={rankingArray} />
-
+                                </div>
                                 <form className="categoryChoiceForm" onSubmit={handleSubmitSelectCategory} >
 
                                     <div >
                                         <div className="fontForMsg">
-                                            Jeśli chcesz wziąć udział w quizie wybierz kategorię spośród dostępnych<br /><br /><br />
+                                            Jeśli chcesz wziąć udział w quizie wybierz dziedzinę spośród dostępnych<br /><br /><br />
                                         </div>
 
                                         <Select options={options} onChange={handleSelectCategory} autoFocus={true} menuColor='red' styles={styles} width='670px'
@@ -769,8 +770,8 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
 
                 ) :
                     (<div className="finalResults">
-                        Final results {collectedPoints} <br /><br />
-                        Your answers were:<br /><br />
+                        Uzyskano punktów: {collectedPoints} w czasie {totalTimeOfAnserwing}s<br /><br />
+                        Twoje odpowiedzi na pytania były następujące:<br /><br />
 
                         Pytanie 1: {questionsArray[0].question} <br />
                         A: {questionsArray[0].answerA} <br />
@@ -877,10 +878,6 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                             correctAnswers={collectedPoints}
                             time={totalTimeOfAnserwing}
                             totalQuestions={5} />
-                            <div>
-                                Total time of anwsering {totalTimeOfAnserwing}
-                            </div>
-
                     </div>)
             }
         </div>

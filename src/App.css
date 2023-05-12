@@ -93,6 +93,18 @@
   
 }
 
+.loginRegistrationSubButton {
+  display: inline-block;
+  border: none;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .loginLabels {
   font-size:0.8cm;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -101,12 +113,10 @@
 }
 
 .registerLabel {
-  font-size: small;
-  margin-right: 40%;
-  text-align: center;
-
-  top: 60%;
-  right: 0%;
+  font-size: 16px; /* wielkość liter */
+  text-align: right;
+  padding: .2px .3px;
+  border-radius: .2px;
 }
 
 .submit{

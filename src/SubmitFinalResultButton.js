@@ -23,7 +23,6 @@ const SubmitFinalResultButton = ({
         setDomain(selectedCategory.value);
 
         let responseData = []
-        time = 59;
         let t='';
         if(time >= 60){
             let min = (time - time  % 60) / 60;
@@ -93,9 +92,9 @@ const SubmitFinalResultButton = ({
         setHandleTimes(handleTimes + 1);
     }
 
-    useEffect(() => {
-        handleClick()
-    }, [])
+    // useEffect(() => {
+    //     handleClick()
+    // }, [])
 
     return (
         <button className="submitFinalResultButton" onClick={handleClick}>

@@ -8,7 +8,7 @@ const LogoutButton = () => {
 
     return (
         <button className="logoutButton" onClick={handleClick}>
-            LogouT
+            Logout
         </button>
     )
 }

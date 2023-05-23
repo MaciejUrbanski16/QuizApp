@@ -385,7 +385,7 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
         reset();
         setCounter(30);
         setIsActive(true);
-
+        console.log("handleSubmitSelectCategory kategoria: ", selectedCategory.value)
         if (selectedCategory.value === 'geografia') {
             try {
                 const response = await axios.get(dbGeographyUrl, JSON.stringify({
@@ -682,7 +682,7 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                 questionNumber !== 6 ? (
                     (selectedCategory.value === 'geografia' || selectedCategory.value === 'fizyka' || selectedCategory.value === 'matematyka')
                         && isSubmitSelectCategory === true ? (
-                        <p>
+                        <div className="page">
 
                             Pytanie numer {questionNumber}<br />
                             Pozostały czas na udzielenie odpowiedzi
@@ -736,7 +736,7 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                                 <button className="nextQuestion" onClick={handleNextQuestion}>Submit answer</button>
                             </div>
 
-                        </p>
+                        </div>
 
                     ) :
                         (

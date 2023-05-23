@@ -176,10 +176,11 @@
   height: 600px;
   border: 3px solid #73AD21;
   text-align: center;
-  margin-left: 10%;
+  margin-left: 1%;
   top: 80px;
   border-radius: 30px;
   border-width: 5px;
+  padding-top: 5%;
 }
 
 .answerButton {
@@ -260,7 +261,7 @@ p {
   height: 2400px;
   border: 3px solid #73AD21;
   text-align: center;
-  margin-left: 10%;
+  margin-left: 17%;
   top: 80px;
   border-radius: 30px;
   border-width: 5px;
@@ -287,9 +288,21 @@ p {
   display: flex;
   justify-content: center; 
   margin-top: 25px;
+
 }
 
 .twoButtons {
   display: 'flex';
   justify-content: flex-end; 
+}
+
+.page {
+  position: relative;
+  width: 1200px;
+  height: 2400px;
+
+  text-align: center;
+  margin-left: 17%;
+  top: 80px;
+
 }

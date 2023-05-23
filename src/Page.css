@@ -36,10 +36,16 @@
 .categoryChoiceForm {
   position: absolute;
   background-color: #282c34;
-  margin-left: 15%;
-  margin-top: 15%;
+  margin-left: 22%;
+  margin-top: 8%;
   margin-right: 15%;
   text-align: center;
+  border-width: 50px;
+  padding: 40px;
+
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  
 }
 
 .fontForMsg {
@@ -110,7 +116,7 @@
   margin-top: 5%;
 
   top: 0%;
-  right: -40%;
+  right: -43%;
 
   font-size: medium;
   font-family: Verdana, Geneva, Tahoma, sans-serif;

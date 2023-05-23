@@ -52,7 +52,7 @@ function App() {
                 currentForm === "login" ? (
                   <div>
 
-                    <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} data={data} setData={setData} />
+                    <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} data={data} setData={setData} /><br/>
                     <a className='registerLabel'>Don't you have account yet? - <button className="loginRegistrationSubButton" onClick={setRegisterForm}>Register here!</button></a>
 
                   </div>

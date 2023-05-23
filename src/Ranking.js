@@ -20,7 +20,7 @@ const customStyles = {
       //position: 'fixed',
       // top: '20px',
       // right: '20px',
-      left: '31%',
+      left: '34%',
 
       width: '600px',
     }),
@@ -29,7 +29,7 @@ const customStyles = {
        // position: 'fixed',
         // top: '130px',
         // right: '20px',
-        left: '31%',
+        left: '34%',
         width: '600px'
       })
   };

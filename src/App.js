@@ -22,7 +22,7 @@ function App() {
 
   const [currentForm, setCurrentForm] = useState('login');
   const [rankingPage, setRankingPage] = useState(' ');
-  const [rankingArray, setRankingArray] = useState([]);
+ // const [rankingArray, setRankingArray] = useState([]);
   const [isFetched, setIsFetched] = useState(0);
 
   const [login, setLogin] = useState();
@@ -73,7 +73,7 @@ function App() {
             {
               rankingPage === ' ' ? (
                 <div>
-                  <Page login={login} setRankingPage={setRankingPage} setRankingArray={setRankingArray} rankingArray={rankingArray} data={data} />
+                  <Page login={login} setRankingPage={setRankingPage} data={data} />
                   <br />
                 </div>
               ) :

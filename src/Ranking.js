@@ -4,7 +4,7 @@ import axios from './api/axios'
 
 import './Ranking.css'
 
-const getRankingGeographyUrl = 'http://localhost:3001/api/db/ranking/geografia/';
+const getRankingGeographyUrl = '/api/db/ranking/geografia';
 const getRankingPhysicsUrl = 'http://localhost:3001/api/db/ranking/fizyka/';
 const getRankingMathUrl = 'http://localhost:3001/api/db/ranking/matematyka/';
 
@@ -12,6 +12,7 @@ const options = [
     { value: 'geografia', label: 'Geografia', color: '#abcfca' },
     { value: 'fizyka', label: 'Fizyka', color: '#abcfcf' },
     { value: 'matematyka', label: 'Matematyka', color: '#abcfcf', fontColor: '#00ff00' }
+   // {value: 'invalid', label: 'Invalid', color: '#abcfcf', fontColor: '#00ff00'}
 ];
 
 const customStyles = {
@@ -96,62 +97,48 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
 
     const [rankingType, setRankingType] = useState("geografia");
 
+    const [ranking, setRanking] = useState([]);
+    const [currentUserAnswer, setCurrentUserAnswer] = useState(' ')
+
+    const fetchData = async () => {
+      console.log("Fetch ranking data")
+        try {
+            const response = await axios.get(getRankingGeographyUrl);
+            console.log("Pobrano ranking ", response.data.response)
+            setRanking(response.data.response);
+        } catch (error) {
+            console.error('Błąd podczas pobierania danych:', error);
+        }
+    }
+
     useEffect(() => {
         fetchData();
     }, []);
 
-    function fetchData() {
-        // if(rankingType === "ogolny")
-        // {
-        // fetch(getRankingUrl)
-        //     .then(response => response.json())
-        //     .then(data => setData(data.response))
-        //     .catch(error => console.log(error));
-        // console.log("Ranking array in App.js: " + data);
-        // }
-        //if(rankingType === "geografia")
-        {
-            fetch(getRankingGeographyUrl)
-            .then(response => response.json())
-            .then(data => setGeographyRanking(data.response))
-            .catch(error => console.log(error));
-            console.log("Geografia - Ranking array in App.js: " + data);
-        }
-        //else if(rankingType === "fizyka")
-        {
-            fetch(getRankingPhysicsUrl)
-            .then(response => response.json())
-            .then(data => setPhysicsRanking(data.response))
-            .catch(error => console.log(error));
-            console.log("Fizyka - Ranking array in App.js: " + data);
-        }
-        //else if(rankingType === "matematyka")
-        {
-            fetch(getRankingMathUrl)
-            .then(response => response.json())
-            .then(data => setMathRanking(data.response))
-            .catch(error => console.log(error));
-            console.log("Matemetyka - Ranking array in App.js: " + data);
-        }
-    }
 
     const handleSelectRankingType = async (selectedOption) => {
         console.log(`Option selected:`, selectedOption.value);
         setRankingType(selectedOption.value)
-        fetchData();
 
         if(rankingType === "fizyka")
         {
-          setData(geographyRanking);
+          console.log("Print ranking: ", ranking);
+          //setData(ranking);
         }
         else if(rankingType === "geografia")
         {
-          setData(physicsRanking);
+          console.log("Print ranking: ", ranking);
+          setData(ranking);
         }
         else if(rankingType === "matematyka")
         {
-          setData(mathRanking);
+          console.log("Print ranking: ", ranking);
+          //setData(ranking);
         }
+        else{
+          console.log("Zle wczytalo sie: ", ranking);
+        }
+        console.log(`Option selected:`, selectedOption.value);
     }
 
     const handleClick = async () => {

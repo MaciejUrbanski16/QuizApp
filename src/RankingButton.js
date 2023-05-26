@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 const getRankingUrl = 'api/db/ranking/';
 
-const RankingButton = ({ setRankingPage, setRankingArray, rankingArray }) => {
+const RankingButton = ({ setRankingPage }) => {
 
     const handleClick = async () => {
         console.log("handle ranking button click")

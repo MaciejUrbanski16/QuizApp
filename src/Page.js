@@ -13,7 +13,7 @@ import './Page.css'
 
 
 
-const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) => {
+const Page = ({ login, setRankingPage, data }) => {
 
     const dbGeographyUrl = 'api/db/geography'
     const dbMathUrl = 'api/db/math'
@@ -46,70 +46,14 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
         }
     }, [counter, isActive]);
 
-
-    //hardcoded to five questions
-    let counterOfQuestions = 0;
-    let submittedAnswers = [
-        {
-            question: "none",
-            correctAnswer: "none",
-            answerA: "none",
-            answerB: "none",
-            answerC: "none",
-            answerD: "none",
-        },
-        {
-            question: "none",
-            correctAnswer: "none",
-            answerA: "none",
-            answerB: "none",
-            answerC: "none",
-            answerD: "none",
-        },
-        {
-            question: "none",
-            correctAnswer: "none",
-            answerA: "none",
-            answerB: "none",
-            answerC: "none",
-            answerD: "none",
-        },
-        {
-            question: "none",
-            correctAnswer: "none",
-            answerA: "none",
-            answerB: "none",
-            answerC: "none",
-            answerD: "none",
-        },
-        {
-            question: "none",
-            correctAnswer: "none",
-            answerA: "none",
-            answerB: "none",
-            answerC: "none",
-            answerD: "none",
-        }
-
-    ]
-
     const [selectedCategory, setSelectedCategory] = useState(' ');
     const [isSubmitSelectCategory, setIsSubmitSelectCategory] = useState(false)
 
-    const [id, setId] = useState(0);
-    const [question, setQuestion] = useState('');
-    const [answerA, setAnswerA] = useState('');
-    const [answerB, setAnswerB] = useState('');
-    const [answerC, setAnswerC] = useState('');
-    const [answerD, setAnswerD] = useState('');
-    const [correctAnswer, setCorrectAnswer] = useState('');
 
     const [questionNumber, setQuestionNumber] = useState(1);
     const [collectedPoints, setCollectedPoints] = useState(0);
 
-    const [questionsArray, setQuestionsArray] = useState([]);
     const [userAnswers, setUserAnswers] = useState([]);
-    const [answerToCurrentQuestion, setAnswerToCurrentQuestion] = useState(' ')
 
     const [questionCounter, setQuestionCounter] = useState(0)
 
@@ -183,7 +127,7 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
 
         setCurrentUserAnswer(answer)
         console.log("All users answers: " + userAnswers);
-        setAnswerToCurrentQuestion(answer);
+        //setAnswerToCurrentQuestion(answer);
 
     }
 
@@ -285,7 +229,7 @@ const Page = ({ login, setRankingPage, setRankingArray, rankingArray, data }) =>
                             <div>
                                 <div className="twoButtons">
                                     <LogoutButton />
-                                    <RankingButton setRankingPage={setRankingPage} setRankingArray={setRankingArray} rankingArray={rankingArray} />
+                                    <RankingButton setRankingPage={setRankingPage} />
                                 </div>
                                 <form className="categoryChoiceForm" onSubmit={handleSubmitSelectCategory} >
 

@@ -5,6 +5,7 @@ const storeNewRankingEntryUrl = 'api/db/ranking/storeNewRankingEntry';
 const getRankingUrl = 'api/db/ranking/';
 
 const SubmitFinalResultButton = ({
+    setCollectedPoints,
     setUserAnswers,
     setQuestionCounter,
     login,
@@ -92,6 +93,7 @@ const SubmitFinalResultButton = ({
             setSelectedCategory(' ');
             setQuestionCounter(0)
             setUserAnswers([])
+            setCollectedPoints(0)
        // }
         setHandleTimes(handleTimes + 1);
     }

@@ -5,6 +5,8 @@ const storeNewRankingEntryUrl = 'api/db/ranking/storeNewRankingEntry';
 const getRankingUrl = 'api/db/ranking/';
 
 const SubmitFinalResultButton = ({
+    setUserAnswers,
+    setQuestionCounter,
     login,
     setQuestionNumber,
     selectedCategory,
@@ -82,13 +84,15 @@ const SubmitFinalResultButton = ({
                 console.log('Registration failed')
             }
         }
-        if (handleTimes === 1) {
+       // if (handleTimes === 1) {
             console.log("Before changing state to have new serie of uestions");
-            setQuestionNumber(1);
+            setQuestionNumber(0);
             setIsSubmitSelectCategory(false);
             setHandleTimes(0);
             setSelectedCategory(' ');
-        }
+            setQuestionCounter(0)
+            setUserAnswers([])
+       // }
         setHandleTimes(handleTimes + 1);
     }
 

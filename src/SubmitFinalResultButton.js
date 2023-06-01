@@ -5,6 +5,7 @@ const storeNewRankingEntryUrl = 'api/db/ranking/storeNewRankingEntry';
 const getRankingUrl = 'api/db/ranking/';
 
 const SubmitFinalResultButton = ({
+    domainForRanking,
     setCollectedPoints,
     setUserAnswers,
     setQuestionCounter,
@@ -53,16 +54,16 @@ const SubmitFinalResultButton = ({
             
         }
 
-        console.log("From page: login: ", login, " correctanswers: ", correctAnswers, " time: ", t, " totalQQuestions: ", totalQuestions, " domain ", domain)
+        console.log("From page: login: ", login, " correctanswers: ", correctAnswers, " time: ", t, " totalQQuestions: ", totalQuestions, " domain ", domainForRanking)
 
 
         try {
             const response = await axios.post(storeNewRankingEntryUrl, JSON.stringify({
                 login,
                 correctAnswers,
-                time: t,
+                time: t,    
                 totalQuestions,
-                domain
+                domain: domainForRanking
             }),
                 {
                     headers: {

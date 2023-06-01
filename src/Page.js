@@ -87,6 +87,7 @@ const Page = ({ login, setRankingPage, data }) => {
     const handleSubmitSelectCategory = async () => {
         setCurrentUserAnswer(' ')
         setIsSubmitSelectCategory(true);
+        fetchData()
 
         //setTotalTimeOfAnswering(totalTimeOfAnserwing + (30 - counter));
         reset();
@@ -99,13 +100,50 @@ const Page = ({ login, setRankingPage, data }) => {
     const [currentUserAnswer, setCurrentUserAnswer] = useState(' ')
 
     const fetchData = async () => {
-        try {
-            const response = await axios.get(dbGeographyUrl);
-            console.log("Pobrano tablicę pytan ", response.data.question[0].question)
-            setQuestions(response.data);
-        } catch (error) {
-            console.error('Błąd podczas pobierania danych:', error);
+        console.log("fetch data selectedCategory: ", selectedCategory)
+        if (selectedCategory.value === "geografia") {
+            try {
+                console.log("Selected category - geografia")
+                const response = await axios.get(dbGeographyUrl);
+                console.log("Pobrano tablicę pytan DLA GEOGRAFIA", response.data.question[0].question)
+                setQuestions(response.data);
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych:', error);
+            }
         }
+        else if(selectedCategory.value === "fizyka")
+        {
+            try {
+                console.log("Selected category - fizyka")
+                const response = await axios.get(dbPhysicsUrl);
+                console.log("Pobrano tablicę pytan DLA FIZYKA ", response.data.question[0].question)
+                setQuestions(response.data);
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych:', error);
+            } 
+        }
+        else if( selectedCategory.value === "matematyka")
+        {
+            try {
+                console.log("Selected category - matematyka")
+                const response = await axios.get(dbMathUrl);
+                console.log("Pobrano tablicę pytan DLA MATEMATYKA ", response.data.question[0].question)
+                setQuestions(response.data);
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych:', error);
+            } 
+        }
+        else {
+            console.log("WYBRANO INVALID KATEGORIE - PYTANIA NIE ZOSTALY ODCZYTANE!!!")
+            // try {
+            //     const response = await axios.get(dbPhysicsUrl);
+            //     console.log("Pobrano tablicę pytan DLA GEOGRAFIA", response.data.question[0].question)
+            //     setQuestions(response.data);
+            // } catch (error) {
+            //     console.error('Błąd podczas pobierania danych:', error);
+            // }
+        }
+
     }
 
     useEffect(() => {
@@ -115,7 +153,7 @@ const Page = ({ login, setRankingPage, data }) => {
     const handleSelectCategory = async (selectedOption) => {
         console.log("Option selected: ", selectedOption.value);
         setSelectedCategory(selectedOption);
-        //fetchData()
+        fetchData()
         console.log("Use state: ", questions)
         console.log("Use state drugie pytanie i odpowiedz: ", questions.question[0].question, " odp: ", questions.question[0].answerA)
 
@@ -201,7 +239,7 @@ const Page = ({ login, setRankingPage, data }) => {
 
                                     </label>
                                     <label className="radio">
-                                        <input type="radio" name="answer" value="A" className="radio-input"  />
+                                        <input type="radio" name="answer" value="A" className="radio-input" />
                                         <span className="radio-label">{"A  " + questions.question[questionCounter].answerA}</span>
                                     </label>
                                     <label className="radio">
@@ -285,6 +323,7 @@ const Page = ({ login, setRankingPage, data }) => {
                         </div>
 
                         <SubmitFinalResultButton
+                            domainForRanking={selectedCategory.value}
                             setCollectedPoints={setCollectedPoints}
                             setUserAnswers={setUserAnswers}
                             setQuestionCounter={setQuestionCounter}

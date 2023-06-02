@@ -4,11 +4,9 @@ import Select, { components } from 'react-select'
 import RankingButton from "./RankingButton";
 import LogoutButton from "./LogoutButton";
 import SubmitFinalResultButton from "./SubmitFinalResultButton";
-
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import axios from './api/axios'
-
 import './Page.css'
 
 
@@ -90,7 +88,7 @@ const Page = ({ login, setRankingPage, data }) => {
         //     console.log("Nie wybrano zadnej kategorii")
         //     //return
         // }
-        
+
         setCurrentUserAnswer(' ')
         setIsSubmitSelectCategory(true);
         fetchData()
@@ -100,7 +98,7 @@ const Page = ({ login, setRankingPage, data }) => {
         setCounter(30);
         setIsActive(true);
         console.log("handleSubmitSelectCategory kategoria: ", selectedCategory.value)
-        
+
     }
 
     const [questions, setQuestions] = useState([]);
@@ -118,8 +116,7 @@ const Page = ({ login, setRankingPage, data }) => {
                 console.error('Błąd podczas pobierania danych:', error);
             }
         }
-        else if(selectedCategory.value === "fizyka")
-        {
+        else if (selectedCategory.value === "fizyka") {
             try {
                 console.log("Selected category - fizyka")
                 const response = await axios.get(dbPhysicsUrl);
@@ -127,10 +124,9 @@ const Page = ({ login, setRankingPage, data }) => {
                 setQuestions(response.data);
             } catch (error) {
                 console.error('Błąd podczas pobierania danych:', error);
-            } 
+            }
         }
-        else if( selectedCategory.value === "matematyka")
-        {
+        else if (selectedCategory.value === "matematyka") {
             try {
                 console.log("Selected category - matematyka")
                 const response = await axios.get(dbMathUrl);
@@ -138,17 +134,10 @@ const Page = ({ login, setRankingPage, data }) => {
                 setQuestions(response.data);
             } catch (error) {
                 console.error('Błąd podczas pobierania danych:', error);
-            } 
+            }
         }
         else {
             console.log("WYBRANO INVALID KATEGORIE - PYTANIA NIE ZOSTALY ODCZYTANE!!!")
-            // try {
-            //     const response = await axios.get(dbPhysicsUrl);
-            //     console.log("Pobrano tablicę pytan DLA GEOGRAFIA", response.data.question[0].question)
-            //     setQuestions(response.data);
-            // } catch (error) {
-            //     console.error('Błąd podczas pobierania danych:', error);
-            // }
         }
 
     }
@@ -284,8 +273,6 @@ const Page = ({ login, setRankingPage, data }) => {
                                         </div>
 
                                         <Select options={options} onChange={handleSelectCategory} autoFocus={true} menuColor='red' styles={styles} width='670px'
-
-
 
                                         /><br /><br /><br />
 

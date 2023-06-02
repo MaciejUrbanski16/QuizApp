@@ -1,20 +1,9 @@
 import './App.css';
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import axios from './api/axios'
-
 import { useState } from "react";
 
-
-
 const loginUrl = 'api/login';
-
-const getRankingUrl = 'api/db/ranking/';
-
-const loggedSuccesful = <label>Login succesful</label>
-
-
 
 const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, setData }) => {
 
@@ -44,9 +33,6 @@ const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, set
                 }
             )
 
-            // console.log(response.data)
-            // console.log(response.accessToken)
-            // console.log(JSON.stringify(response))
 
             if (response.data.message === "User not found!") {
                 console.log("Wrong login or password")
@@ -55,7 +41,6 @@ const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, set
             else if (response.data.message === "Login successfully") {
 
                 setCurrentForm("page")
-                //clear forms
             }
         }
         catch (err) {
@@ -71,35 +56,33 @@ const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, set
         }
     }
 
-
-
     return (
         <div>
-        <form className='loginForm' onSubmit={handleSubmit}>
-            <label className='loginLabels'>
+            <form className='loginForm' onSubmit={handleSubmit}>
+                <label className='loginLabels'>
 
-                Login:
-                <input id="login" type="text" onChange={(e) => setLogin(e.target.value)} /><br />
+                    Login:
+                    <input id="login" type="text" onChange={(e) => setLogin(e.target.value)} /><br />
 
-            </label>
+                </label>
 
-            <label className='loginLabels'>
-                Password:
-                <input id="password" type="password" onChange={(e) => setPassword(e.target.value)} /><br /><br />
+                <label className='loginLabels'>
+                    Password:
+                    <input id="password" type="password" onChange={(e) => setPassword(e.target.value)} /><br /><br />
 
-            </label>
-            {
-                loginSuccess === 0 ? (
-                    <div className='wrongLoginPasswordMsg'>
-                        Niepoprawny login lub hasło
-                    </div>
-                ): (
-                    <div></div>
-                )
-            }
+                </label>
+                {
+                    loginSuccess === 0 ? (
+                        <div className='wrongLoginPasswordMsg'>
+                            Niepoprawny login lub hasło
+                        </div>
+                    ) : (
+                        <div></div>
+                    )
+                }
 
-            <input className="submit" type="submit" value="Login" /><br /><br />
-        </form>
+                <input className="submit" type="submit" value="Login" /><br /><br />
+            </form>
 
         </div>
     );

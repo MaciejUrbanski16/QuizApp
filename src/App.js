@@ -22,7 +22,7 @@ function App() {
 
   const [currentForm, setCurrentForm] = useState('login');
   const [rankingPage, setRankingPage] = useState(' ');
- // const [rankingArray, setRankingArray] = useState([]);
+  // const [rankingArray, setRankingArray] = useState([]);
   const [isFetched, setIsFetched] = useState(0);
 
   const [login, setLogin] = useState();
@@ -52,7 +52,7 @@ function App() {
                 currentForm === "login" ? (
                   <div>
 
-                    <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} data={data} setData={setData} /><br/>
+                    <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} data={data} setData={setData} /><br />
                     <a className='registerLabel'>Nie posiadasz konta? - zarejestruj się - <button className="loginRegistrationSubButton" onClick={setRegisterForm}>Register here!</button></a>
 
                   </div>

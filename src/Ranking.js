@@ -44,9 +44,6 @@ const Table = ({ data, rankingType }) => {
     }
   });
 
-
-
-
   return (
     <table className="table">
       <thead>
@@ -101,50 +98,41 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
   const [rankingType, setRankingType] = useState(" ");
 
   const [ranking, setRanking] = useState([]);
-  const [currentUserAnswer, setCurrentUserAnswer] = useState(' ')
 
   const fetchData = async () => {
     console.log("Fetch ranking data")
-    //if (rankingType === "geografia") {
-      try {
-        console.log("Fetching data for rankintype: ", rankingType)
-        const response = await axios.get(getRankingGeographyUrl);
+    try {
+      console.log("Fetching data for rankintype: ", rankingType)
+      const response = await axios.get(getRankingGeographyUrl);
 
-        console.log("Pobrano ranking ", response.data.response)
-        setGeographyRanking(response.data.response);
-        console.log("Ranking w useState: ", geographyRanking)
-      } catch (error) {
-        console.error('Błąd podczas pobierania danych:', error);
-      }
-    //}
-    ///else if (rankingType === "fizyka") {
-      try {
-        console.log("Fetching data for rankintype: ", rankingType)
-        const response = await axios.get(getRankingPhysicsUrl);
+      console.log("Pobrano ranking ", response.data.response)
+      setGeographyRanking(response.data.response);
+      console.log("Ranking w useState: ", geographyRanking)
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych:', error);
+    }
 
-        console.log("Pobrano ranking ", response.data.response)
-        setPhysicsRanking(response.data.response);
-        console.log("Ranking w useState: ", physicsRanking)
-      } catch (error) {
-        console.error('Błąd podczas pobierania danych:', error);
-      }
-   // }
-   // else if (rankingType === "matematyka") {
-      try {
-        console.log("Fetching data for rankintype: ", rankingType)
-        const response = await axios.get(getRankingMathUrl);
+    try {
+      console.log("Fetching data for rankintype: ", rankingType)
+      const response = await axios.get(getRankingPhysicsUrl);
 
-        console.log("Pobrano ranking ", response.data.response)
-        setMathRanking(response.data.response);
-        console.log("Ranking w useState: ", mathRanking)
-      } catch (error) {
-        console.error('Błąd podczas pobierania danych:', error);
-      }
-   // }
-   // else {
-   //   console.log("WYBRANO NIEPOPRAWNY RANKING TYPE")
-   // }
+      console.log("Pobrano ranking ", response.data.response)
+      setPhysicsRanking(response.data.response);
+      console.log("Ranking w useState: ", physicsRanking)
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych:', error);
+    }
 
+    try {
+      console.log("Fetching data for rankintype: ", rankingType)
+      const response = await axios.get(getRankingMathUrl);
+
+      console.log("Pobrano ranking ", response.data.response)
+      setMathRanking(response.data.response);
+      console.log("Ranking w useState: ", mathRanking)
+    } catch (error) {
+      console.error('Błąd podczas pobierania danych:', error);
+    }
   }
 
   useEffect(() => {
@@ -159,15 +147,12 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
 
     if (rankingType === "fizyka") {
       console.log("Print ranking: ", ranking);
-      //fetchData()
     }
     else if (rankingType === "geografia") {
       console.log("Print ranking: ", ranking);
-      //fetchData()
     }
     else if (rankingType === "matematyka") {
       console.log("Print ranking: ", ranking);
-      //fetchData()
     }
     else {
       console.log("Zle wczytalo sie: ", ranking);
@@ -178,31 +163,6 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
   const handleClick = async () => {
     setRankingPage(' ');
   }
-  const handleClickConfirm = async () => {
-    // if(rankingType === "geografia")
-    // {
-    //   setData(geographyRanking);
-    // }
-    // else if(rankingType === "fizyka")
-    // {
-    //   setData(physicsRanking);
-    // }
-  }
-  // if (rankingType === "geografia")
-  // {
-  //   setData(geographyRanking)
-  // }
-  // else if(rankingType === "fizyka")
-  // {
-  //   setData(physicsRanking)
-  // }
-  // else if( rankingType === "matematyka")
-  // {
-  //   setData(mathRanking)
-  // }
-  // else{
-  //   console.log("INVALID RANKING TYPE!!!")
-  // }
 
   return (
     <div className="table_container">
@@ -212,12 +172,12 @@ const Ranking = ({ setRankingPage, rankingArray }) => {
       </div><br />
       <Select options={options} styles={customStyles} onChange={handleSelectRankingType} autoFocus={true} menuColor='red' /><br />
       {
-      rankingType === "geografia" || rankingType === "fizyka" ? (
-        (rankingType === "geografia") ? (
-          <Table data={geographyRanking} rankingType={rankingType} />
-        ) : (
-          <Table data={physicsRanking} rankingType={rankingType} />
-        )) : (
+        rankingType === "geografia" || rankingType === "fizyka" ? (
+          (rankingType === "geografia") ? (
+            <Table data={geographyRanking} rankingType={rankingType} />
+          ) : (
+            <Table data={physicsRanking} rankingType={rankingType} />
+          )) : (
           <Table data={mathRanking} rankingType={rankingType} />
         )
       }

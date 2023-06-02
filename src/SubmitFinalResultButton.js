@@ -17,7 +17,7 @@ const SubmitFinalResultButton = ({
     correctAnswers,
     time,
     totalQuestions
-                                }) => {
+}) => {
 
     const [handleTimes, setHandleTimes] = useState(0);
     const [domain, setDomain] = useState(' ');
@@ -27,31 +27,28 @@ const SubmitFinalResultButton = ({
         setDomain(selectedCategory.value);
 
         let responseData = []
-        let t='';
-        if(time >= 60){
-            let min = (time - time  % 60) / 60;
-            t = ''+min+':'+time%60
-            if(time % 60 === 0)
-            {
-                t = ''+min+':00';
+        let t = '';
+        if (time >= 60) {
+            let min = (time - time % 60) / 60;
+            t = '' + min + ':' + time % 60
+            if (time % 60 === 0) {
+                t = '' + min + ':00';
             }
-            else if(time%60 < 10)
-            {
-                t = ''+min+':0'+time%60
+            else if (time % 60 < 10) {
+                t = '' + min + ':0' + time % 60
             }
-            else{
-                t = ''+min+':'+time%60
+            else {
+                t = '' + min + ':' + time % 60
             }
         }
-        else{
-            if(time >= 10)
-            {
-                t='0:'+time
+        else {
+            if (time >= 10) {
+                t = '0:' + time
             }
-            else{
-                t='0:0'+time
+            else {
+                t = '0:0' + time
             }
-            
+
         }
 
         console.log("From page: login: ", login, " correctanswers: ", correctAnswers, " time: ", t, " totalQQuestions: ", totalQuestions, " domain ", domainForRanking)
@@ -61,7 +58,7 @@ const SubmitFinalResultButton = ({
             const response = await axios.post(storeNewRankingEntryUrl, JSON.stringify({
                 login,
                 correctAnswers,
-                time: t,    
+                time: t,
                 totalQuestions,
                 domain: domainForRanking
             }),
@@ -86,16 +83,16 @@ const SubmitFinalResultButton = ({
                 console.log('Registration failed')
             }
         }
-       // if (handleTimes === 1) {
-            console.log("Before changing state to have new serie of uestions");
-            setQuestionNumber(0);
-            setIsSubmitSelectCategory(false);
-            setHandleTimes(0);
-            setSelectedCategory(' ');
-            setQuestionCounter(0)
-            setUserAnswers([])
-            setCollectedPoints(0)
-       // }
+
+        console.log("Before changing state to have new serie of uestions");
+        setQuestionNumber(0);
+        setIsSubmitSelectCategory(false);
+        setHandleTimes(0);
+        setSelectedCategory(' ');
+        setQuestionCounter(0)
+        setUserAnswers([])
+        setCollectedPoints(0)
+
         setHandleTimes(handleTimes + 1);
     }
 
@@ -107,8 +104,6 @@ const SubmitFinalResultButton = ({
         <button className="submitFinalResultButton" onClick={handleClick}>
             Submit Final Result
         </button>
-
-
     )
 }
 export default SubmitFinalResultButton;

@@ -85,6 +85,12 @@ const Page = ({ login, setRankingPage, data }) => {
     }
 
     const handleSubmitSelectCategory = async () => {
+        // if (selectedCategory.value !== "geografia")
+        // {
+        //     console.log("Nie wybrano zadnej kategorii")
+        //     //return
+        // }
+        
         setCurrentUserAnswer(' ')
         setIsSubmitSelectCategory(true);
         fetchData()
@@ -94,6 +100,7 @@ const Page = ({ login, setRankingPage, data }) => {
         setCounter(30);
         setIsActive(true);
         console.log("handleSubmitSelectCategory kategoria: ", selectedCategory.value)
+        
     }
 
     const [questions, setQuestions] = useState([]);
@@ -155,7 +162,7 @@ const Page = ({ login, setRankingPage, data }) => {
         setSelectedCategory(selectedOption);
         fetchData()
         console.log("Use state: ", questions)
-        console.log("Use state drugie pytanie i odpowiedz: ", questions.question[0].question, " odp: ", questions.question[0].answerA)
+        //console.log("Use state drugie pytanie i odpowiedz: ", questions.question[0].question, " odp: ", questions.question[0].answerA)
 
     }
 

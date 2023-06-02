@@ -16,54 +16,65 @@ const Registration = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    const [loginWrongSize, setLoginWrongSize] = useState(0)
+    const [emailWrongSize, setEmailWrongSize] = useState(0)
+    const [passwordWrongSize, setPasswordWrongSize] = useState(0)
+
     const [validEntries, setValidEntries] = useState(0);
 
     const handleSubmit = async e => {
-        
+
         e.preventDefault();
 
         console.log(login, email, password)
-        if(login.length < 6)
-        {
+        setLoginWrongSize(0)
+        setEmailWrongSize(0)
+        setPasswordWrongSize(0)
+        if (login.length < 6) {
             console.log("Too short login - at least 6 characters");
+            setLoginWrongSize(1)
             return;
         }
-        else if(login.length > 24){
+        else if (login.length > 24) {
             console.log("Too long login - at most 24 characters");
+            setLoginWrongSize(1)
             return;
         }
-        if(email.length < 6)
-        {
+        if (email.length < 6) {
             console.log("Too short email - at least 6 characters");
+            setEmailWrongSize(1)
             return;
         }
-        else if(email.length > 24){
+        else if (email.length > 24) {
             console.log("Too long email - at most 24 characters");
+            setEmailWrongSize(1)
             return;
         }
-        if(password.length < 6)
-        {
+        if (password.length < 6) {
             console.log("Too short password - at least 6 characters");
+            setPasswordWrongSize(1)
             return;
         }
-        else if(password.length > 24){
+        else if (password.length > 24) {
             console.log("Too long password - at most 24 characters");
+            setPasswordWrongSize(1)
             return;
         }
 
         setValidEntries(1);
 
-        try{
+        try {
             const response = await axios.post(registerUrl, JSON.stringify({
                 login,
                 email,
                 password
-            }), 
-            {
-                headers: { 'Content-Type': 'application/json',
-                
+            }),
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+
+                    }
                 }
-            }
             )
 
             console.log(response.data)
@@ -73,11 +84,11 @@ const Registration = () => {
             //setSuccess(true)
             //clear forms
         }
-        catch(err){
-            if(!err?.response){
+        catch (err) {
+            if (!err?.response) {
                 console.log('No internet connection')
             }
-            else if(err.response?.status === 409){
+            else if (err.response?.status === 409) {
                 console.log('User name taken')
             }
             else {
@@ -106,8 +117,38 @@ const Registration = () => {
                 <input id="password" type="password" onChange={(e) => setPassword(e.target.value)} /><br /><br />
 
             </label>
+
+            {(loginWrongSize === 1 || passwordWrongSize === 1 || emailWrongSize === 1) ? (
+                (loginWrongSize === 1 || passwordWrongSize === 1) ? (
+                    (loginWrongSize === 1) ? (
+                        <div className='wrongLoginPasswordMsg'>
+                            Niepoprawny rozmiar loginu
+                        </div>
+                    ) : (
+                        <div className='wrongLoginPasswordMsg'>
+                            Niepoprawny rozmiar hasła
+                        </div>
+                    )
+                ) : (
+                    <div className='wrongLoginPasswordMsg'>
+                        Niepoprawny rozmiar emaila
+                    </div>
+                )
+            ) : (
+                <div className='wrongLoginPasswordMsg'>
+
+                </div>
+            )}
+            {(validEntries === 1 ? (
+                <div className='successfulRegistrationMsg'>
+                    Pomyślnie zarejestrowano nowego użytkownika. Klkając przycisk "Login here" możesz zalogować się na konto
+                </div>
+            ):
+            (
+                <div></div>
+            ))}
             <input className="submit" type="submit" value="Register" /><br /><br />
-            
+
         </form>
     );
 }

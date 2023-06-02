@@ -22,6 +22,8 @@ const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, set
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    const [loginSuccess, setLoginSuccess] = useState(1)
+
     const handleSubmit = async e => {
 
         e.preventDefault();
@@ -48,6 +50,7 @@ const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, set
 
             if (response.data.message === "User not found!") {
                 console.log("Wrong login or password")
+                setLoginSuccess(0)
             }
             else if (response.data.message === "Login successfully") {
 
@@ -71,6 +74,7 @@ const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, set
 
 
     return (
+        <div>
         <form className='loginForm' onSubmit={handleSubmit}>
             <label className='loginLabels'>
 
@@ -84,8 +88,20 @@ const Login = ({ currentForm, setCurrentForm, userLogin, setUserLogin, data, set
                 <input id="password" type="password" onChange={(e) => setPassword(e.target.value)} /><br /><br />
 
             </label>
+            {
+                loginSuccess === 0 ? (
+                    <div className='wrongLoginPasswordMsg'>
+                        Niepoprawny login lub hasło
+                    </div>
+                ): (
+                    <div></div>
+                )
+            }
+
             <input className="submit" type="submit" value="Login" /><br /><br />
         </form>
+
+        </div>
     );
 }
 export default Login;

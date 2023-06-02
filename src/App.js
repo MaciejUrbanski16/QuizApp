@@ -53,7 +53,7 @@ function App() {
                   <div>
 
                     <Login currentForm={currentForm} setCurrentForm={setCurrentForm} userLogin={login} setUserLogin={setLogin} data={data} setData={setData} /><br/>
-                    <a className='registerLabel'>Don't you have account yet? - <button className="loginRegistrationSubButton" onClick={setRegisterForm}>Register here!</button></a>
+                    <a className='registerLabel'>Nie posiadasz konta? - zarejestruj się - <button className="loginRegistrationSubButton" onClick={setRegisterForm}>Register here!</button></a>
 
                   </div>
 
@@ -61,7 +61,7 @@ function App() {
                   (
                     <a>
                       <Registration />
-                      <a className='registerLabel'>Do you have already account? - <button className="loginRegistrationSubButton" onClick={setLoginForm}  >Log in here!</button></a>
+                      <a className='registerLabel'>Posiadasz już konto? - zaloguj się - <button className="loginRegistrationSubButton" onClick={setLoginForm}  >Log in here!</button></a>
                     </a>
 
                   )
